@@ -1,0 +1,2421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Senior Engineer Interview Guide — Chandan's Edition</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700;900&display=swap');
+
+:root {
+--bg: #0a0e1a;
+--bg2: #0f1525;
+--bg3: #151c2e;
+--bg4: #1a2236;
+--border: #1e2d4a;
+--border2: #2a3a5c;
+--text: #c8d6f0;
+--text-dim: #6b7fa0;
+--text-bright: #e8f0ff;
+--accent: #3d7eff;
+--accent2: #00c7ff;
+--accent3: #ff6b6b;
+--accent4: #4ecdc4;
+--accent5: #ffd93d;
+--green: #4ade80;
+--orange: #fb923c;
+--purple: #a78bfa;
+--pink: #f472b6;
+--mono: 'JetBrains Mono', monospace;
+--sans: 'Inter', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+background: var(--bg);
+color: var(--text);
+font-family: var(--sans);
+font-size: 14px;
+line-height: 1.6;
+min-height: 100vh;
+}
+
+/* === HEADER === */
+.site-header {
+background: linear-gradient(135deg, #0a0e1a 0%, #0d1829 50%, #0a1220 100%);
+border-bottom: 1px solid var(--border);
+padding: 0 24px;
+position: sticky;
+top: 0;
+z-index: 100;
+backdrop-filter: blur(12px);
+}
+
+.header-inner {
+max-width: 1400px;
+margin: 0 auto;
+display: flex;
+align-items: center;
+justify-content: space-between;
+height: 56px;
+gap: 16px;
+}
+
+.logo {
+font-family: var(--mono);
+font-size: 13px;
+font-weight: 700;
+color: var(--accent2);
+letter-spacing: 0.05em;
+white-space: nowrap;
+}
+
+.logo span { color: var(--text-dim); font-weight: 400; }
+
+.header-badge {
+background: linear-gradient(90deg, var(--accent), var(--accent2));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+font-size: 11px;
+font-weight: 700;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+}
+
+/* === NAV TABS === */
+.nav-outer {
+background: var(--bg2);
+border-bottom: 1px solid var(--border);
+overflow-x: auto;
+scrollbar-width: none;
+}
+.nav-outer::-webkit-scrollbar { display: none; }
+
+.nav-tabs {
+display: flex;
+max-width: 1400px;
+margin: 0 auto;
+padding: 0 24px;
+gap: 2px;
+}
+
+.tab-btn {
+background: none;
+border: none;
+color: var(--text-dim);
+font-family: var(--mono);
+font-size: 11px;
+font-weight: 600;
+letter-spacing: 0.06em;
+text-transform: uppercase;
+padding: 12px 16px;
+cursor: pointer;
+border-bottom: 2px solid transparent;
+white-space: nowrap;
+transition: color 0.2s, border-color 0.2s;
+}
+
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active {
+color: var(--accent2);
+border-bottom-color: var(--accent2);
+}
+
+/* === LAYOUT === */
+.main {
+max-width: 1400px;
+margin: 0 auto;
+padding: 32px 24px 80px;
+}
+
+.section { display: none; }
+.section.active { display: block; }
+
+.section-header {
+margin-bottom: 32px;
+}
+
+.section-title {
+font-family: var(--mono);
+font-size: 11px;
+font-weight: 600;
+color: var(--accent);
+text-transform: uppercase;
+letter-spacing: 0.14em;
+margin-bottom: 8px;
+}
+
+.section-headline {
+font-size: 28px;
+font-weight: 900;
+color: var(--text-bright);
+line-height: 1.2;
+letter-spacing: -0.02em;
+}
+
+.section-sub {
+font-size: 14px;
+color: var(--text-dim);
+margin-top: 8px;
+}
+
+/* === CARDS === */
+.cards-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+gap: 20px;
+margin-top: 24px;
+}
+
+.card {
+background: var(--bg2);
+border: 1px solid var(--border);
+border-radius: 12px;
+overflow: hidden;
+transition: border-color 0.2s, transform 0.15s;
+}
+
+.card:hover {
+border-color: var(--border2);
+transform: translateY(-1px);
+}
+
+.card-header {
+display: flex;
+align-items: center;
+gap: 12px;
+padding: 16px 20px;
+border-bottom: 1px solid var(--border);
+background: var(--bg3);
+}
+
+.card-icon {
+width: 36px;
+height: 36px;
+border-radius: 8px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 16px;
+flex-shrink: 0;
+}
+
+.card-title {
+font-size: 15px;
+font-weight: 700;
+color: var(--text-bright);
+letter-spacing: -0.01em;
+}
+
+.card-tag {
+margin-left: auto;
+font-family: var(--mono);
+font-size: 10px;
+font-weight: 600;
+padding: 3px 8px;
+border-radius: 20px;
+text-transform: uppercase;
+letter-spacing: 0.08em;
+flex-shrink: 0;
+}
+
+.card-body { padding: 20px; }
+
+.card-body p {
+color: var(--text-dim);
+font-size: 13px;
+margin-bottom: 14px;
+line-height: 1.7;
+}
+
+/* === CODE BLOCKS === */
+.code-tabs {
+display: flex;
+gap: 4px;
+margin-bottom: 0;
+border-bottom: 1px solid var(--border);
+background: #0c1220;
+border-radius: 8px 8px 0 0;
+padding: 8px 12px 0;
+}
+
+.code-tab {
+background: none;
+border: none;
+font-family: var(--mono);
+font-size: 10px;
+font-weight: 600;
+color: var(--text-dim);
+padding: 4px 10px 8px;
+cursor: pointer;
+border-bottom: 2px solid transparent;
+border-radius: 4px 4px 0 0;
+text-transform: uppercase;
+letter-spacing: 0.06em;
+transition: color 0.15s;
+}
+
+.code-tab:hover { color: var(--text); }
+.code-tab.active { color: var(--accent2); border-bottom-color: var(--accent2); }
+
+.code-wrap {
+background: #080d1a;
+border: 1px solid var(--border);
+border-radius: 0 0 8px 8px;
+overflow: hidden;
+margin-bottom: 16px;
+}
+
+.code-panel { display: none; }
+.code-panel.active { display: block; }
+
+pre {
+padding: 16px;
+font-family: var(--mono);
+font-size: 12px;
+line-height: 1.7;
+overflow-x: auto;
+color: #a8c0e8;
+}
+
+.kw { color: #569cd6; }
+.fn { color: #dcdcaa; }
+.str { color: #ce9178; }
+.cm { color: #6a9955; }
+.num { color: #b5cea8; }
+.tp { color: #4ec9b0; }
+.py-kw { color: #ff79c6; }
+.py-fn { color: #50fa7b; }
+.py-str { color: #f1fa8c; }
+.py-cm { color: #6272a4; }
+.py-tp { color: #8be9fd; }
+.go-kw { color: #ff6b6b; }
+.go-fn { color: #4ecdc4; }
+.go-str { color: #ffd93d; }
+.go-cm { color: #6b7fa0; }
+.go-tp { color: #a78bfa; }
+
+/* === TRADEOFF BOX === */
+.tradeoff-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 10px;
+margin-top: 14px;
+}
+
+.tradeoff-box {
+background: var(--bg3);
+border: 1px solid var(--border);
+border-radius: 8px;
+padding: 12px;
+}
+
+.tradeoff-box h4 {
+font-family: var(--mono);
+font-size: 10px;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 0.1em;
+margin-bottom: 8px;
+}
+
+.tradeoff-box.pros h4 { color: var(--green); }
+.tradeoff-box.cons h4 { color: var(--accent3); }
+
+.tradeoff-box ul {
+list-style: none;
+display: flex;
+flex-direction: column;
+gap: 4px;
+}
+
+.tradeoff-box li {
+font-size: 12px;
+color: var(--text-dim);
+padding-left: 14px;
+position: relative;
+}
+
+.tradeoff-box.pros li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-size: 10px; top: 1px; }
+.tradeoff-box.cons li::before { content: '✗'; position: absolute; left: 0; color: var(--accent3); font-size: 10px; top: 1px; }
+
+/* === IMPACT BANNER === */
+.impact-banner {
+background: linear-gradient(90deg, rgba(0,199,255,0.08) 0%, rgba(61,126,255,0.05) 100%);
+border: 1px solid rgba(0,199,255,0.2);
+border-radius: 8px;
+padding: 12px 16px;
+margin-top: 14px;
+display: flex;
+align-items: flex-start;
+gap: 10px;
+}
+
+.impact-banner .icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+.impact-banner p {
+font-size: 12px;
+color: var(--accent2);
+margin: 0;
+line-height: 1.6;
+}
+
+.impact-banner strong { color: var(--text-bright); }
+
+/* === PATTERN TABLE === */
+.pattern-table-wrap {
+overflow-x: auto;
+border-radius: 10px;
+border: 1px solid var(--border);
+margin-top: 20px;
+}
+
+.pattern-table {
+width: 100%;
+border-collapse: collapse;
+font-size: 13px;
+}
+
+.pattern-table thead tr {
+background: var(--bg3);
+}
+
+.pattern-table th {
+padding: 12px 16px;
+text-align: left;
+font-family: var(--mono);
+font-size: 10px;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 0.1em;
+color: var(--text-dim);
+border-bottom: 1px solid var(--border);
+}
+
+.pattern-table tbody tr {
+border-bottom: 1px solid var(--border);
+transition: background 0.15s;
+}
+
+.pattern-table tbody tr:last-child { border-bottom: none; }
+.pattern-table tbody tr:hover { background: var(--bg3); }
+
+.pattern-table td {
+padding: 12px 16px;
+vertical-align: top;
+line-height: 1.5;
+}
+
+.pat-name {
+font-weight: 600;
+color: var(--accent2);
+font-size: 13px;
+white-space: nowrap;
+}
+
+.pat-when { color: var(--text); }
+
+.pat-tradeoff {
+color: var(--orange);
+font-family: var(--mono);
+font-size: 11px;
+}
+
+.pat-icpa {
+color: var(--text-dim);
+font-size: 12px;
+font-style: italic;
+}
+
+/* === SECTION DIVIDER === */
+.sect-divider {
+display: flex;
+align-items: center;
+gap: 12px;
+margin: 36px 0 24px;
+}
+
+.sect-divider span {
+font-family: var(--mono);
+font-size: 11px;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 0.12em;
+color: var(--purple);
+white-space: nowrap;
+}
+
+.sect-divider::before,
+.sect-divider::after {
+content: '';
+flex: 1;
+height: 1px;
+background: var(--border);
+}
+
+/* === COMPARISON GRID === */
+.compare-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+margin-top: 16px;
+}
+
+.compare-col {
+background: var(--bg3);
+border: 1px solid var(--border);
+border-radius: 8px;
+overflow: hidden;
+}
+
+.compare-col-header {
+padding: 10px 16px;
+font-family: var(--mono);
+font-size: 11px;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 0.1em;
+border-bottom: 1px solid var(--border);
+}
+
+.compare-col-body {
+padding: 12px 16px;
+}
+
+.compare-col-body ul {
+list-style: none;
+display: flex;
+flex-direction: column;
+gap: 6px;
+}
+
+.compare-col-body li {
+font-size: 12px;
+color: var(--text-dim);
+padding-left: 16px;
+position: relative;
+}
+
+.compare-col-body li::before {
+content: '▸';
+position: absolute;
+left: 0;
+font-size: 9px;
+top: 2px;
+}
+
+/* === CHIPS === */
+.chip {
+display: inline-block;
+font-family: var(--mono);
+font-size: 10px;
+font-weight: 600;
+padding: 2px 8px;
+border-radius: 12px;
+margin: 2px;
+text-transform: uppercase;
+letter-spacing: 0.06em;
+}
+
+.chip-blue { background: rgba(61,126,255,0.15); color: var(--accent); border: 1px solid rgba(61,126,255,0.3); }
+.chip-cyan { background: rgba(0,199,255,0.12); color: var(--accent2); border: 1px solid rgba(0,199,255,0.25); }
+.chip-green { background: rgba(74,222,128,0.12); color: var(--green); border: 1px solid rgba(74,222,128,0.25); }
+.chip-orange { background: rgba(251,146,60,0.12); color: var(--orange); border: 1px solid rgba(251,146,60,0.25); }
+.chip-purple { background: rgba(167,139,250,0.12); color: var(--purple); border: 1px solid rgba(167,139,250,0.25); }
+.chip-red { background: rgba(255,107,107,0.12); color: var(--accent3); border: 1px solid rgba(255,107,107,0.25); }
+
+/* === ACCORDION === */
+.accordion { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+
+.acc-item {
+background: var(--bg2);
+border: 1px solid var(--border);
+border-radius: 8px;
+overflow: hidden;
+}
+
+.acc-header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 14px 18px;
+cursor: pointer;
+user-select: none;
+transition: background 0.15s;
+}
+
+.acc-header:hover { background: var(--bg3); }
+
+.acc-header-left {
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+.acc-title {
+font-size: 14px;
+font-weight: 600;
+color: var(--text-bright);
+}
+
+.acc-chevron {
+color: var(--text-dim);
+font-size: 12px;
+transition: transform 0.2s;
+}
+
+.acc-item.open .acc-chevron { transform: rotate(90deg); }
+
+.acc-body {
+display: none;
+padding: 0 18px 18px;
+border-top: 1px solid var(--border);
+padding-top: 16px;
+}
+
+.acc-item.open .acc-body { display: block; }
+
+/* === DIAGRAM BOXES === */
+.diagram-box {
+background: #080d1a;
+border: 1px solid var(--border);
+border-radius: 8px;
+padding: 16px;
+font-family: var(--mono);
+font-size: 12px;
+color: var(--accent2);
+margin: 12px 0;
+white-space: pre;
+overflow-x: auto;
+line-height: 1.6;
+}
+
+/* === METRIC CARDS === */
+.metrics-row {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+gap: 12px;
+margin: 16px 0;
+}
+
+.metric-card {
+background: var(--bg3);
+border: 1px solid var(--border);
+border-radius: 8px;
+padding: 14px 16px;
+text-align: center;
+}
+
+.metric-val {
+font-size: 26px;
+font-weight: 900;
+font-family: var(--mono);
+background: linear-gradient(90deg, var(--accent), var(--accent2));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+display: block;
+line-height: 1;
+margin-bottom: 4px;
+}
+
+.metric-label {
+font-size: 11px;
+color: var(--text-dim);
+text-transform: uppercase;
+letter-spacing: 0.08em;
+}
+
+/* === SCROLLBAR === */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+@media (max-width: 768px) {
+.cards-grid { grid-template-columns: 1fr; }
+.compare-grid { grid-template-columns: 1fr; }
+.tradeoff-grid { grid-template-columns: 1fr; }
+.section-headline { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+<div class="header-inner">
+<div class="logo">$ chandan<span>.senior-engineer</span><span style="color:var(--accent2)">_guide</span>.sh</div>
+<div class="header-badge">Interview Ready — 2026</div>
+</div>
+</header>
+
+<nav class="nav-outer">
+<div class="nav-tabs">
+<button class="tab-btn active" onclick="showTab('python')">Python Internals</button>
+<button class="tab-btn" onclick="showTab('sd30')">30 System Design Patterns</button>
+<button class="tab-btn" onclick="showTab('otel')">OTel + Observability</button>
+<button class="tab-btn" onclick="showTab('kafka')">Async / Kafka</button>
+<button class="tab-btn" onclick="showTab('redis')">Redis + SQL/NoSQL</button>
+<button class="tab-btn" onclick="showTab('api')">REST + gRPC + Auth</button>
+<button class="tab-btn" onclick="showTab('security')">Security (OWASP + ZeroTrust)</button>
+</div>
+</nav>
+
+<main class="main">
+
+<!-- ==================== PYTHON INTERNALS ==================== -->
+<section id="python" class="section active">
+<div class="section-header">
+<div class="section-title">// tab 01</div>
+<h1 class="section-headline">Python Internals</h1>
+<p class="section-sub">Deep Copy vs Shallow Copy · Generators · Generator vs List — with Go equivalents and ICPA anchors</p>
+</div>
+
+<div class="metrics-row">
+<div class="metric-card"><span class="metric-val">80%</span><span class="metric-label">Data prep time saved (ICPA)</span></div>
+<div class="metric-card"><span class="metric-val">91%</span><span class="metric-label">RAG faithfulness score</span></div>
+<div class="metric-card"><span class="metric-val">~0B</span><span class="metric-label">Extra memory — generators</span></div>
+<div class="metric-card"><span class="metric-val">5x</span><span class="metric-label">Faster streaming with lazy eval</span></div>
+</div>
+
+<div class="cards-grid">
+
+<!-- CARD: Deep vs Shallow Copy -->
+<div class="card">
+<div class="card-header">
+<div class="card-icon" style="background:rgba(61,126,255,0.15)">📋</div>
+<div>
+<div class="card-title">Deep Copy vs Shallow Copy</div>
+<div style="margin-top:3px">
+<span class="chip chip-blue">Memory</span>
+<span class="chip chip-orange">Mutation safety</span>
+</div>
+</div>
+<span class="card-tag" style="background:rgba(255,107,107,0.15);color:var(--accent3);border:1px solid rgba(255,107,107,0.25)">Critical</span>
+</div>
+<div class="card-body">
+<p><strong style="color:var(--text)">Shallow copy</strong> duplicates the outer container but keeps nested object references pointing to the same memory. <strong style="color:var(--text)">Deep copy</strong> recursively clones every nested object — fully independent.</p>
+<p style="color:var(--accent2);font-size:12px;margin-bottom:10px">⚡ ICPA context: When cloning a LangGraph StateGraph state dict between agent checkpoints, a shallow copy causes agents to mutate each other's claim data. Deep copy is mandatory.</p>
+
+<div class="code-tabs" id="copy-tabs">
+<button class="code-tab active" onclick="switchCode('copy','py')">Python</button>
+<button class="code-tab" onclick="switchCode('copy','go')">Go</button>
+</div>
+<div class="code-wrap">
+<div class="code-panel active" id="copy-py">
+<pre><span class="py-cm"># Shallow vs Deep Copy in Python</span>
+<span class="py-kw">import</span> copy
+
+<span class="py-cm"># ICPA: claim state snapshot</span>
+claim_state = {
+<span class="py-str">"case_type"</span>: <span class="py-str">"DST"</span>,
+<span class="py-str">"entities"</span>: [<span class="py-str">"Schaden_Nr_123"</span>, <span class="py-str">"Datum"</span>],
+<span class="py-str">"metadata"</span>: {<span class="py-str">"confidence"</span>: <span class="num">0.91</span>}
+}
+
+<span class="py-cm"># Shallow — nested dicts SHARED</span>
+shallow = copy.copy(claim_state)
+shallow[<span class="py-str">"metadata"</span>][<span class="py-str">"confidence"</span>] = <span class="num">0.5</span>
+<span class="py-fn">print</span>(claim_state[<span class="py-str">"metadata"</span>][<span class="py-str">"confidence"</span>]) <span class="py-cm"># 0.5 ← BUG!</span>
+
+<span class="py-cm"># Deep — fully independent</span>
+deep = copy.deepcopy(claim_state)
+deep[<span class="py-str">"metadata"</span>][<span class="py-str">"confidence"</span>] = <span class="num">0.5</span>
+<span class="py-fn">print</span>(claim_state[<span class="py-str">"metadata"</span>][<span class="py-str">"confidence"</span>]) <span class="py-cm"># 0.91 ✓ safe</span>
+
+<span class="py-cm"># When to use each:
+# copy.copy() → flat structs (no nesting), performance critical
+# copy.deepcopy() → state machines, LangGraph, config objects</span></pre>
+</div>
+<div class="code-panel" id="copy-go">
+<pre><span class="go-cm">// Go equivalent — manual deep copy via JSON marshal trick
+// or hand-crafted Clone() methods</span>
+
+<span class="go-kw">package</span> main
+
+<span class="go-kw">import</span> (
+<span class="go-str">"encoding/json"</span>
+<span class="go-str">"fmt"</span>
+)
+
+<span class="go-kw">type</span> <span class="go-tp">Metadata</span> <span class="go-kw">struct</span> {
+Confidence <span class="go-tp">float64</span> <span class="go-str">`json:"confidence"`</span>
+}
+
+<span class="go-kw">type</span> <span class="go-tp">ClaimState</span> <span class="go-kw">struct</span> {
+CaseType <span class="go-tp">string</span> <span class="go-str">`json:"case_type"`</span>
+Entities []<span class="go-tp">string</span> <span class="go-str">`json:"entities"`</span>
+Meta <span class="go-tp">Metadata</span> <span class="go-str">`json:"metadata"`</span>
+}
+
+<span class="go-cm">// Shallow: struct assignment (nested slices SHARED)</span>
+<span class="go-kw">func</span> <span class="go-fn">shallowCopy</span>(s <span class="go-tp">ClaimState</span>) <span class="go-tp">ClaimState</span> {
+<span class="go-kw">return</span> s <span class="go-cm">// struct fields copied, slice header SHARED</span>
+}
+
+<span class="go-cm">// Deep: JSON round-trip (simple, safe)</span>
+<span class="go-kw">func</span> <span class="go-fn">deepCopy</span>(src <span class="go-tp">ClaimState</span>) (<span class="go-tp">ClaimState</span>, <span class="go-tp">error</span>) {
+<span class="go-kw">var</span> dst <span class="go-tp">ClaimState</span>
+b, err := json.Marshal(src)
+<span class="go-kw">if</span> err != <span class="go-kw">nil</span> { <span class="go-kw">return</span> dst, err }
+<span class="go-kw">return</span> dst, json.Unmarshal(b, &dst)
+}
+
+<span class="go-cm">// Production: implement Clone() on every state struct
+// to avoid reflection overhead of JSON</span></pre>
+</div>
+</div>
+
+<div class="tradeoff-grid">
+<div class="tradeoff-box pros">
+<h4>✓ Deep Copy</h4>
+<ul>
+<li>Full mutation isolation</li>
+<li>Safe in concurrent agents</li>
+<li>Predictable state machine</li>
+</ul>
+</div>
+<div class="tradeoff-box cons">
+<h4>✗ Deep Copy Cost</h4>
+<ul>
+<li>O(n) memory + time</li>
+<li>Slow for large nested docs</li>
+<li>Use shallow for flat structs</li>
+</ul>
+</div>
+</div>
+<div class="impact-banner">
+<span class="icon">🏭</span>
+<p><strong>Business impact:</strong> In ICPA's 9-agent StateGraph, deep copying state snapshots between checkpoint transitions prevents cross-agent data corruption — critical when routing German insurance claims across DST/MIN/MDR/AER/MER case types simultaneously.</p>
+</div>
+</div>
+</div>
+
+<!-- CARD: Generators -->
+<div class="card">
+<div class="card-header">
+<div class="card-icon" style="background:rgba(78,205,196,0.15)">⚡</div>
+<div>
+<div class="card-title">Python Generators</div>
+<div style="margin-top:3px">
+<span class="chip chip-green">Lazy eval</span>
+<span class="chip chip-cyan">Memory efficient</span>
+</div>
+</div>
+<span class="card-tag" style="background:rgba(74,222,128,0.15);color:var(--green);border:1px solid rgba(74,222,128,0.25)">Core</span>
+</div>
+<div class="card-body">
+<p>Generators use <code style="color:var(--accent2);font-family:var(--mono);font-size:12px">yield</code> to produce values <em>one at a time</em>, suspending execution and resuming on the next call. No intermediate list is ever built in memory.</p>
+<p style="color:var(--accent2);font-size:12px;margin-bottom:10px">⚡ ICPA context: Streaming LLM token output from Cohere/Bedrock, processing large German email batches from S3, and ChromaDB result iteration all use generators to avoid OOM on EKS pods.</p>
+
+<div class="code-tabs" id="gen-tabs">
+<button class="code-tab active" onclick="switchCode('gen','py')">Python</button>
+<button class="code-tab" onclick="switchCode('gen','go')">Go</button>
+</div>
+<div class="code-wrap">
+<div class="code-panel active" id="gen-py">
+<pre><span class="py-cm"># Generator for streaming ICPA email chunks</span>
+<span class="py-kw">from</span> typing <span class="py-kw">import</span> <span class="py-tp">Generator</span>, <span class="py-tp">Iterator</span>
+<span class="py-kw">import</span> boto3
+
+<span class="py-kw">def</span> <span class="py-fn">stream_emails_from_s3</span>(
+bucket: <span class="py-tp">str</span>, prefix: <span class="py-tp">str</span>
+) -> <span class="py-tp">Generator</span>[<span class="py-tp">dict</span>, <span class="py-tp">None</span>, <span class="py-tp">None</span>]:
+s3 = boto3.client(<span class="py-str">"s3"</span>)
+paginator = s3.get_paginator(<span class="py-str">"list_objects_v2"</span>)
+<span class="py-kw">for</span> page <span class="py-kw">in</span> paginator.paginate(Bucket=bucket, Prefix=prefix):
+<span class="py-kw">for</span> obj <span class="py-kw">in</span> page.get(<span class="py-str">"Contents"</span>, []):
+body = s3.get_object(
+Bucket=bucket, Key=obj[<span class="py-str">"Key"</span>]
+)[<span class="py-str">"Body"</span>].read().decode(<span class="py-str">"utf-8"</span>)
+<span class="py-kw">yield</span> {<span class="py-str">"key"</span>: obj[<span class="py-str">"Key"</span>], <span class="py-str">"content"</span>: body}
+
+<span class="py-cm"># Usage — processes one email at a time</span>
+<span class="py-kw">for</span> email <span class="py-kw">in</span> <span class="py-fn">stream_emails_from_s3</span>(<span class="py-str">"icpa-claims"</span>, <span class="py-str">"inbox/"</span>):
+<span class="py-fn">process_claim</span>(email) <span class="py-cm"># constant memory</span>
+
+<span class="py-cm"># Generator expression (inline):</span>
+claim_ids = (
+email[<span class="py-str">"key"</span>].split(<span class="py-str">"/"</span>)[-<span class="num">1</span>]
+<span class="py-kw">for</span> email <span class="py-kw">in</span> <span class="py-fn">stream_emails_from_s3</span>(<span class="py-str">"icpa-claims"</span>, <span class="py-str">"inbox/"</span>)
+)
+
+<span class="py-cm"># LLM streaming response generator</span>
+<span class="py-kw">def</span> <span class="py-fn">llm_stream_tokens</span>(prompt: <span class="py-tp">str</span>) -> <span class="py-tp">Iterator</span>[<span class="py-tp">str</span>]:
+<span class="py-kw">for</span> chunk <span class="py-kw">in</span> cohere_client.chat_stream(message=prompt):
+<span class="py-kw">if</span> chunk.type == <span class="py-str">"text-generation"</span>:
+<span class="py-kw">yield</span> chunk.text</pre>
+</div>
+<div class="code-panel" id="gen-go">
+<pre><span class="go-cm">// Go equivalent: channels act as generators</span>
+
+<span class="go-kw">package</span> main
+
+<span class="go-kw">import</span> (
+<span class="go-str">"context"</span>
+<span class="go-str">"fmt"</span>
+)
+
+<span class="go-kw">type</span> <span class="go-tp">Email</span> <span class="go-kw">struct</span> {
+Key <span class="go-tp">string</span>
+Content <span class="go-tp">string</span>
+}
+
+<span class="go-cm">// Channel-based generator — lazy like yield</span>
+<span class="go-kw">func</span> <span class="go-fn">StreamEmails</span>(ctx <span class="go-tp">context.Context</span>) <-<span class="go-kw">chan</span> <span class="go-tp">Email</span> {
+ch := <span class="go-fn">make</span>(<span class="go-kw">chan</span> <span class="go-tp">Email</span>, <span class="num">1</span>) <span class="go-cm">// buffered=1 for backpressure</span>
+<span class="go-kw">go func</span>() {
+<span class="go-kw">defer</span> <span class="go-fn">close</span>(ch)
+<span class="go-kw">for</span> _, key := <span class="go-kw">range</span> <span class="go-fn">listS3Objects</span>() {
+content := <span class="go-fn">fetchS3Object</span>(key)
+<span class="go-kw">select</span> {
+<span class="go-kw">case</span> ch <- <span class="go-tp">Email</span>{Key: key, Content: content}:
+<span class="go-kw">case</span> <-ctx.Done(): <span class="go-cm">// cancellation support</span>
+<span class="go-kw">return</span>
+}
+}
+}()
+<span class="go-kw">return</span> ch
+}
+
+<span class="go-cm">// Usage:</span>
+<span class="go-kw">func</span> <span class="go-fn">main</span>() {
+ctx := context.Background()
+<span class="go-kw">for</span> email := <span class="go-kw">range</span> <span class="go-fn">StreamEmails</span>(ctx) {
+fmt.Println(email.Key) <span class="go-cm">// one at a time</span>
+}
+}
+<span class="go-cm">// Go advantage: goroutine + channel gives true
+// concurrency unlike Python's cooperative yield</span></pre>
+</div>
+</div>
+
+<div class="tradeoff-grid">
+<div class="tradeoff-box pros">
+<h4>✓ Generators Win</h4>
+<ul>
+<li>O(1) memory regardless of dataset</li>
+<li>Pipeline composition (gen of gens)</li>
+<li>Natural streaming for LLMs</li>
+<li>Early exit on first match</li>
+</ul>
+</div>
+<div class="tradeoff-box cons">
+<h4>✗ Generators Lose</h4>
+<ul>
+<li>Can only iterate once</li>
+<li>No random access / len()</li>
+<li>Harder to debug mid-stream</li>
+<li>No parallelism (GIL)</li>
+</ul>
+</div>
+</div>
+<div class="impact-banner">
+<span class="icon">🏭</span>
+<p><strong>Business impact:</strong> Replacing list comprehensions with generator expressions in ICPA's BGE-M3 embedding pipeline reduced peak EKS pod memory by ~60%, preventing OOM-kill restarts and improving p99 latency from 4.2s → 1.8s per claim.</p>
+</div>
+</div>
+</div>
+
+<!-- CARD: Generator vs List -->
+<div class="card">
+<div class="card-header">
+<div class="card-icon" style="background:rgba(167,139,250,0.15)">⚖️</div>
+<div>
+<div class="card-title">Generator vs List</div>
+<div style="margin-top:3px">
+<span class="chip chip-purple">Decision guide</span>
+</div>
+</div>
+</div>
+<div class="card-body">
+<p>The choice determines memory footprint at runtime. Lists materialise everything upfront; generators produce on demand.</p>
+
+<div class="compare-grid">
+<div class="compare-col">
+<div class="compare-col-header" style="color:var(--green)">Generator — use yield</div>
+<div class="compare-col-body">
+<ul>
+<li>Infinite or very large sequences</li>
+<li>Stream processing / LLM tokens</li>
+<li>Pipeline of transformations</li>
+<li>Read-once data (S3, Kafka consumer)</li>
+<li>Early exit patterns</li>
+</ul>
+</div>
+</div>
+<div class="compare-col">
+<div class="compare-col-header" style="color:var(--orange)">List — use return</div>
+<div class="compare-col-body">
+<ul>
+<li>Need len(), random access, index</li>
+<li>Multiple iterations required</li>
+<li>Pass to functions expecting a list</li>
+<li>Small dataset (&lt;1M items)</li>
+<li>Sorting or deduplication needed</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="code-tabs" id="gl-tabs">
+<button class="code-tab active" onclick="switchCode('gl','py')">Python</button>
+<button class="code-tab" onclick="switchCode('gl','go')">Go</button>
+</div>
+<div class="code-wrap">
+<div class="code-panel active" id="gl-py">
+<pre><span class="py-cm"># Memory comparison — ICPA embedding batch</span>
+<span class="py-kw">import</span> sys
+
+texts = [<span class="py-str">f"Versicherungsschaden {i}"</span> <span class="py-kw">for</span> i <span class="py-kw">in</span> <span class="py-fn">range</span>(<span class="num">100_000</span>)]
+
+<span class="py-cm"># List: all in memory now</span>
+list_result = [t.upper() <span class="py-kw">for</span> t <span class="py-kw">in</span> texts]
+<span class="py-fn">print</span>(sys.getsizeof(list_result)) <span class="py-cm"># ~800KB+</span>
+
+<span class="py-cm"># Generator: zero overhead until consumed</span>
+gen_result = (t.upper() <span class="py-kw">for</span> t <span class="py-kw">in</span> texts)
+<span class="py-fn">print</span>(sys.getsizeof(gen_result)) <span class="py-cm"># 112 bytes always</span>
+
+<span class="py-cm"># ICPA pattern: generator → batch embed → ChromaDB</span>
+<span class="py-kw">def</span> <span class="py-fn">embed_in_batches</span>(texts_gen, batch_size=<span class="num">32</span>):
+batch = []
+<span class="py-kw">for</span> text <span class="py-kw">in</span> texts_gen:
+batch.append(text)
+<span class="py-kw">if</span> <span class="py-fn">len</span>(batch) == batch_size:
+<span class="py-kw">yield</span> bge_m3_model.encode(batch)
+batch = []
+<span class="py-kw">if</span> batch:
+<span class="py-kw">yield</span> bge_m3_model.encode(batch)</pre>
+</div>
+<div class="code-panel" id="gl-go">
+<pre><span class="go-cm">// Go: slice vs channel comparison</span>
+
+<span class="go-cm">// List equivalent: materialise all</span>
+<span class="go-kw">func</span> <span class="go-fn">getAllTexts</span>() []<span class="go-tp">string</span> {
+result := <span class="go-fn">make</span>([]<span class="go-tp">string</span>, <span class="num">0</span>, <span class="num">100_000</span>)
+<span class="go-kw">for</span> i := <span class="num">0</span>; i < <span class="num">100_000</span>; i++ {
+result = <span class="go-fn">append</span>(result, fmt.Sprintf(<span class="go-str">"Schaden %d"</span>, i))
+}
+<span class="go-kw">return</span> result <span class="go-cm">// all allocated</span>
+}
+
+<span class="go-cm">// Generator equivalent: channel (lazy)</span>
+<span class="go-kw">func</span> <span class="go-fn">streamTexts</span>() <-<span class="go-kw">chan</span> <span class="go-tp">string</span> {
+ch := <span class="go-fn">make</span>(<span class="go-kw">chan</span> <span class="go-tp">string</span>)
+<span class="go-kw">go func</span>() {
+<span class="go-kw">defer</span> <span class="go-fn">close</span>(ch)
+<span class="go-kw">for</span> i := <span class="num">0</span>; i < <span class="num">100_000</span>; i++ {
+ch <- fmt.Sprintf(<span class="go-str">"Schaden %d"</span>, i)
+}
+}()
+<span class="go-kw">return</span> ch
+}
+<span class="go-cm">// Go wins: can parallelise goroutines
+// Python GIL limits true generator parallelism</span></pre>
+</div>
+</div>
+<div class="impact-banner">
+<span class="icon">💡</span>
+<p><strong>Interview answer:</strong> "I use generators by default for data pipelines — in ICPA I stream German emails from S3 through translation → BGE-M3 embedding → ChromaDB upsert as a generator chain. Each stage yields one batch, keeping EKS pod RSS under 512MB even for 50k-email ingestion runs."</p>
+</div>
+</div>
+</div>
+
+</div><!-- /cards-grid -->
+</section>
+
+<!-- ==================== 30 SYSTEM DESIGN PATTERNS ==================== -->
+<section id="sd30" class="section">
+<div class="section-header">
+<div class="section-title">// tab 02</div>
+<h1 class="section-headline">The 30 System Design Patterns</h1>
+<p class="section-sub">Pattern · When to pick it · Main trade-off · ICPA anchor — all 30 in one reference</p>
+</div>
+
+<div class="sect-divider"><span>Scalability Patterns (8)</span></div>
+<div class="pattern-table-wrap">
+<table class="pattern-table">
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Pick it when</th>
+<th>Main Trade-Off</th>
+<th>ICPA / Production Anchor</th>
+</tr>
+</thead>
+<tbody>
+<tr><td class="pat-name">Load Balancing</td><td class="pat-when">Traffic exceeds one server</td><td class="pat-tradeoff">Needs statelessness or session handling</td><td class="pat-icpa">AWS ALB in front of EKS ICPA pods; round-robin across 3 replicas</td></tr>
+<tr><td class="pat-name">Horizontal Scaling</td><td class="pat-when">Load keeps growing indefinitely</td><td class="pat-tradeoff">Coordination complexity, shared state</td><td class="pat-icpa">EKS HPA scales ICPA from 3→12 pods at claim volume spikes</td></tr>
+<tr><td class="pat-name">Database Sharding</td><td class="pat-when">One DB cannot handle writes</td><td class="pat-tradeoff">Cross-shard queries become expensive</td><td class="pat-icpa">ChromaDB tenant-per-case-type partitioning (DST/MIN/MDR separate)</td></tr>
+<tr><td class="pat-name">Read Replicas</td><td class="pat-when">Reads greatly exceed writes (10:1+)</td><td class="pat-tradeoff">Replication lag can serve stale data</td><td class="pat-icpa">RDS Aurora read replica for ICPA audit trail queries</td></tr>
+<tr><td class="pat-name">Consistent Hashing</td><td class="pat-when">Nodes frequently join/leave</td><td class="pat-tradeoff">More complex routing logic</td><td class="pat-icpa">ElastiCache cluster routing for ICPA session cache</td></tr>
+<tr><td class="pat-name">Cache-Aside</td><td class="pat-when">Read-heavy workloads</td><td class="pat-tradeoff">Stale cache risk, cache stampede</td><td class="pat-icpa">Redis caches TF-IDF fast-path results; TTL = 1h per claim type</td></tr>
+<tr><td class="pat-name">Write-Through Cache</td><td class="pat-when">Data must always be fresh</td><td class="pat-tradeoff">Slower writes (sync cache + DB)</td><td class="pat-icpa">Claim status updates: Redis + RDS written together atomically</td></tr>
+<tr><td class="pat-name">Write-Behind Cache</td><td class="pat-when">Ultra-fast writes needed, durability can lag</td><td class="pat-tradeoff">Potential data loss on crash</td><td class="pat-icpa">Log analytics engine: buffer metrics in Redis, flush async</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="sect-divider"><span>Infrastructure Patterns (5)</span></div>
+<div class="pattern-table-wrap">
+<table class="pattern-table">
+<thead>
+<tr><th>Pattern</th><th>Pick it when</th><th>Main Trade-Off</th><th>ICPA / Production Anchor</th></tr>
+</thead>
+<tbody>
+<tr><td class="pat-name">Leader Election</td><td class="pat-when">Single coordinator needed (e.g., cron)</td><td class="pat-tradeoff">Election overhead, split-brain risk</td><td class="pat-icpa">LangGraph orchestrator elected per claim batch run</td></tr>
+<tr><td class="pat-name">Service Discovery</td><td class="pat-when">Dynamic service locations</td><td class="pat-tradeoff">Additional infrastructure (Consul/Envoy)</td><td class="pat-icpa">EKS CoreDNS resolves ICPA microservices dynamically</td></tr>
+<tr><td class="pat-name">API Gateway</td><td class="pat-when">Many backend services need unified entry</td><td class="pat-tradeoff">Central bottleneck risk, SPOF</td><td class="pat-icpa">FastAPI gateway unifies ICPA endpoints; rate limiting + auth</td></tr>
+<tr><td class="pat-name">Sidecar Pattern</td><td class="pat-when">Shared cross-cutting concerns (logging, TLS)</td><td class="pat-tradeoff">Extra resource usage per pod</td><td class="pat-icpa">Envoy sidecar handles mTLS + OTel trace collection on ICPA pods</td></tr>
+<tr><td class="pat-name">Service Mesh</td><td class="pat-when">Large microservice deployments</td><td class="pat-tradeoff">Significant operational complexity</td><td class="pat-icpa">Istio considered for ICPA v2; currently Envoy-only</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="sect-divider"><span>Messaging Patterns (5)</span></div>
+<div class="pattern-table-wrap">
+<table class="pattern-table">
+<thead>
+<tr><th>Pattern</th><th>Pick it when</th><th>Main Trade-Off</th><th>ICPA / Production Anchor</th></tr>
+</thead>
+<tbody>
+<tr><td class="pat-name">Publish-Subscribe</td><td class="pat-when">Multiple consumers need same events</td><td class="pat-tradeoff">Harder debugging, message ordering</td><td class="pat-icpa">SNS fans claim events to audit, analytics, notification consumers</td></tr>
+<tr><td class="pat-name">Event-Driven Architecture</td><td class="pat-when">Services react to events, not polls</td><td class="pat-tradeoff">Eventual consistency</td><td class="pat-icpa">ICPA agents trigger on S3 PutObject events via EventBridge</td></tr>
+<tr><td class="pat-name">Stream Processing</td><td class="pat-when">Real-time analytics needed</td><td class="pat-tradeoff">Operational complexity (Kafka + Flink)</td><td class="pat-icpa">GenAI Log Analysis Engine: real-time log stream → anomaly detection</td></tr>
+<tr><td class="pat-name">Webhook Pattern</td><td class="pat-when">External notifications required</td><td class="pat-tradeoff">Delivery reliability, retry needed</td><td class="pat-icpa">ICPA notifies downstream claim mgmt system via webhook on completion</td></tr>
+<tr><td class="pat-name">Message Queue</td><td class="pat-when">Need asynchronous processing</td><td class="pat-tradeoff">Increased latency vs sync</td><td class="pat-icpa">SQS queues ICPA claims for agent processing; DLQ for failures</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="sect-divider"><span>Resilience Patterns (5)</span></div>
+<div class="pattern-table-wrap">
+<table class="pattern-table">
+<thead>
+<tr><th>Pattern</th><th>Pick it when</th><th>Main Trade-Off</th><th>ICPA / Production Anchor</th></tr>
+</thead>
+<tbody>
+<tr><td class="pat-name">Circuit Breaker</td><td class="pat-when">Dependency failures cascade</td><td class="pat-tradeoff">Recovery tuning required (open/half-open)</td><td class="pat-icpa">Cohere Rerank circuit breaker: fallback to ChromaDB top-3 on timeout</td></tr>
+<tr><td class="pat-name">Retry Pattern</td><td class="pat-when">Temporary failures common</td><td class="pat-tradeoff">Retry storms possible without jitter</td><td class="pat-icpa">ICPA retries Bedrock calls: exponential backoff + jitter, max 3 attempts</td></tr>
+<tr><td class="pat-name">Bulkhead</td><td class="pat-when">Isolate failures between services</td><td class="pat-tradeoff">Resource fragmentation</td><td class="pat-icpa">Separate thread pools per case-type agent; DST failures don't block MDR</td></tr>
+<tr><td class="pat-name">Rate Limiting</td><td class="pat-when">Protect services from overload</td><td class="pat-tradeoff">Possible user throttling</td><td class="pat-icpa">FastAPI middleware rate-limits LLM calls: 100/min per Cohere API key</td></tr>
+<tr><td class="pat-name">Failover</td><td class="pat-when">High availability required</td><td class="pat-tradeoff">Duplicate infrastructure cost</td><td class="pat-icpa">RDS Multi-AZ failover for ICPA audit DB; ~30s RTO</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="sect-divider"><span>Data Patterns (7)</span></div>
+<div class="pattern-table-wrap">
+<table class="pattern-table">
+<thead>
+<tr><th>Pattern</th><th>Pick it when</th><th>Main Trade-Off</th><th>ICPA / Production Anchor</th></tr>
+</thead>
+<tbody>
+<tr><td class="pat-name">CDN</td><td class="pat-when">Global low-latency delivery</td><td class="pat-tradeoff">Stale content until TTL/purge</td><td class="pat-icpa">CloudFront CDN for ICPA frontend static assets</td></tr>
+<tr><td class="pat-name">Materialized Views</td><td class="pat-when">Expensive queries repeated often</td><td class="pat-tradeoff">Refresh lag, storage cost</td><td class="pat-icpa">Pre-computed claim summary views refreshed nightly in RDS</td></tr>
+<tr><td class="pat-name">Event Sourcing</td><td class="pat-when">Need complete audit/history</td><td class="pat-tradeoff">Complex event replay</td><td class="pat-icpa">ICPA stores every claim state transition as immutable event in DynamoDB</td></tr>
+<tr><td class="pat-name">CQRS</td><td class="pat-when">Read and write workloads differ significantly</td><td class="pat-tradeoff">More components, eventual consistency</td><td class="pat-icpa">ICPA: write path = SQS→Agent pipeline; read path = Aurora replica</td></tr>
+<tr><td class="pat-name">Data Partitioning</td><td class="pat-when">Massive datasets exceed single node</td><td class="pat-tradeoff">Rebalancing challenges</td><td class="pat-icpa">ChromaDB partitioned by case type; BGE-M3 embeddings per partition</td></tr>
+<tr><td class="pat-name">Distributed Transactions</td><td class="pat-when">Strong consistency required across services</td><td class="pat-tradeoff">Performance overhead (2PC)</td><td class="pat-icpa">ICPA avoids 2PC; uses Saga pattern instead for claim processing</td></tr>
+<tr><td class="pat-name">Saga Pattern</td><td class="pat-when">Distributed business workflows need rollback</td><td class="pat-tradeoff">Eventual consistency, compensating txns</td><td class="pat-icpa">ICPA claim workflow: each agent step has compensating rollback action</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="impact-banner" style="margin-top:24px">
+<span class="icon">🎯</span>
+<p><strong>Interview framework:</strong> For any system design question, state: (1) the pattern name, (2) the trigger condition ("I'd pick this when…"), (3) the main trade-off you're accepting, (4) how you've used it in production. ICPA gives you real anchors for 25+ of these 30 patterns.</p>
+</div>
+</section>
+
+<!-- ==================== OTEL ==================== -->
+<section id="otel" class="section">
+<div class="section-header">
+<div class="section-title">// tab 03</div>
+<h1 class="section-headline">OpenTelemetry + Observability</h1>
+<p class="section-sub">The three pillars — Metrics, Logs, Traces — and how OTel unifies them across distributed services</p>
+</div>
+
+<div class="diagram-box">OpenTelemetry Architecture — ICPA on EKS
+
+┌─────────────────────────────────────────────────────────────┐
+│ Service A Service B Service C │
+│ (FastAPI GW) (LangGraph) (ChromaDB Agent) │
+│ │ │ │ │
+│ └──────────────────┴───────────────────┘ │
+│ │ │
+│ ┌───────────▼────────────┐ │
+│ │ OTel Collector │ ← sidecar/daemonset│
+│ │ (Envoy / OTel SDK) │ │
+│ └────┬────────┬──────────┘ │
+│ │ │ │ │
+│ Metrics Logs Traces │
+│ (Prometheus) (Loki) (Jaeger/Tempo) │
+│ │ │ │ │
+│ ┌────▼────────▼─────────▼──┐ │
+│ │ Grafana Dashboard │ │
+│ └──────────────────────────┘ │
+└─────────────────────────────────────────────────────────────┘</div>
+
+<div class="cards-grid">
+<div class="card">
+<div class="card-header">
+<div class="card-icon" style="background:rgba(74,222,128,0.15)">📊</div>
+<div class="card-title">Metrics — What happened?</div>
+</div>
+<div class="card-body">
+<p>Quantitative measurements over time. Counters, gauges, histograms. Low cardinality, cheap to store, alert on.</p>
+
+<div class="code-tabs" id="metrics-tabs">
+<button class="code-tab active" onclick="switchCode('metrics','py')">Python</button>
+<button class="code-tab" onclick="switchCode('metrics','go')">Go</button>
+</div>
+<div class="code-wrap">
+<div class="code-panel active" id="metrics-py">
+<pre><span class="py-kw">from</span> opentelemetry <span class="py-kw">import</span> metrics
+<span class="py-kw">from</span> opentelemetry.sdk.metrics <span class="py-kw">import</span> <span class="py-tp">MeterProvider</span>
+<span class="py-kw">from</span> opentelemetry.exporter.prometheus <span class="py-kw">import</span> <span class="py-tp">PrometheusExporter</span>
+
+meter = metrics.<span class="py-fn">get_meter</span>(<span class="py-str">"icpa.claims"</span>, version=<span class="py-str">"1.0"</span>)
+
+<span class="py-cm"># ICPA: track claim processing counts & latency</span>
+claims_processed = meter.<span class="py-fn">create_counter</span>(
+name=<span class="py-str">"icpa.claims.processed"</span>,
+description=<span class="py-str">"Total claims processed"</span>,
+unit=<span class="py-str">"1"</span>,
+)
+
+claim_latency = meter.<span class="py-fn">create_histogram</span>(
+name=<span class="py-str">"icpa.claims.latency"</span>,
+description=<span class="py-str">"End-to-end claim processing time"</span>,
+unit=<span class="py-str">"ms"</span>,
+)
+
+rag_faithfulness = meter.<span class="py-fn">create_gauge</span>(
+name=<span class="py-str">"icpa.rag.faithfulness"</span>,
+description=<span class="py-str">"RAGAS faithfulness score"</span>,
+)
+
+<span class="py-cm"># In claim processing path:</span>
+<span class="py-kw">import</span> time
+
+<span class="py-kw">async def</span> <span class="py-fn">process_claim</span>(claim_id: <span class="py-tp">str</span>, case_type: <span class="py-tp">str</span>):
+start = time.<span class="py-fn">time_ns</span>()
+<span class="py-kw">try</span>:
+result = <span class="py-kw">await</span> <span class="py-fn">run_langgraph_pipeline</span>(claim_id)
+claims_processed.<span class="py-fn">add</span>(<span class="num">1</span>, {
+<span class="py-str">"case_type"</span>: case_type,
+<span class="py-str">"status"</span>: <span class="py-str">"success"</span>
+})
+claim_latency.<span class="py-fn">record</span>(
+(time.<span class="py-fn">time_ns</span>() - start) / <span class="num">1e6</span>,
+{<span class="py-str">"case_type"</span>: case_type}
+)
+<span class="py-kw">except</span> <span class="py-tp">Exception</span> <span class="py-kw">as</span> e:
+claims_processed.<span class="py-fn">add</span>(<span class="num">1</span>, {<span class="py-str">"status"</span>: <span class="py-str">"error"</span>})</pre>
+</div>
+<div class="code-panel" id="metrics-go">
+<pre><span class="go-kw">import</span> (
+<span class="go-str">"go.opentelemetry.io/otel/metric"</span>
+)
+
+<span class="go-kw">var</span> (
+claimsCounter metric.<span class="go-tp">Int64Counter</span>
+latencyHist metric.<span class="go-tp">Float64Histogram</span>
+)
+
+<span class="go-kw">func</span> <span class="go-fn">initMetrics</span>(mp metric.<span class="go-tp">MeterProvider</span>) {
+m := mp.<span class="go-fn">Meter</span>(<span class="go-str">"icpa.claims"</span>)
+claimsCounter, _ = m.<span class="go-fn">Int64Counter</span>(
+<span class="go-str">"icpa.claims.processed"</span>,
+metric.<span class="go-fn">WithDescription</span>(<span class="go-str">"Claims processed"</span>),
+)
+latencyHist, _ = m.<span class="go-fn">Float64Histogram</span>(
+<span class="go-str">"icpa.claims.latency"</span>,
+metric.<span class="go-fn">WithUnit</span>(<span class="go-str">"ms"</span>),
+)
+}
+
+<span class="go-kw">func</span> <span class="go-fn">ProcessClaim</span>(ctx <span class="go-tp">context.Context</span>, caseType <span class="go-tp">string</span>) {
+start := time.<span class="go-fn">Now</span>()
+<span class="go-kw">defer func</span>() {
+latencyHist.<span class="go-fn">Record</span>(ctx,
+float64(time.<span class="go-fn">Since</span>(start).Milliseconds()),
+metric.<span class="go-fn">WithAttributes</span>(
+attribute.<span class="go-fn">String</span>(<span class="go-str">"case_type"</span>, caseType),
+),
+)
+}()
+claimsCounter.<span class="go-fn">Add</span>(ctx, <span class="num">1</span>)
+}</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header">
+<div class="card-icon" style="background:rgba(167,139,250,0.15)">🔍</div>
+<div class="card-title">Traces — Why is it slow?</div>
+</div>
+<div class="card-body">
+<p>Distributed traces track a single request through every service hop with spans. Critical for debugging multi-agent LangGraph pipelines.</p>
+
+<div class="code-tabs" id="trace-tabs">
+<button class="code-tab active" onclick="switchCode('trace','py')">Python</button>
+<button class="code-tab" onclick="switchCode('trace','go')">Go</button>
+</div>
+<div class="code-wrap">
+<div class="code-panel active" id="trace-py">
+<pre><span class="py-kw">from</span> opentelemetry <span class="py-kw">import</span> trace
+<span class="py-kw">from</span> opentelemetry.sdk.trace <span class="py-kw">import</span> <span class="py-tp">TracerProvider</span>
+<span class="py-kw">from</span> opentelemetry.exporter.jaeger.thrift <span class="py-kw">import</span> <span class="py-tp">JaegerExporter</span>
+
+tracer = trace.<span class="py-fn">get_tracer</span>(<span class="py-str">"icpa.pipeline"</span>)
+
+<span class="py-kw">async def</span> <span class="py-fn">rag_retrieval_agent</span>(claim: <span class="py-tp">dict</span>):
+<span class="py-cm"># Parent span for the whole agent</span>
+<span class="py-kw">with</span> tracer.<span class="py-fn">start_as_current_span</span>(
+<span class="py-str">"rag.retrieval"</span>,
+attributes={
+<span class="py-str">"icpa.case_type"</span>: claim[<span class="py-str">"case_type"</span>],
+<span class="py-str">"icpa.claim_id"</span>: claim[<span class="py-str">"id"</span>],
+}
+) <span class="py-kw">as</span> span:
+
+<span class="py-cm"># Child: embedding</span>
+<span class="py-kw">with</span> tracer.<span class="py-fn">start_as_current_span</span>(<span class="py-str">"bge_m3.embed"</span>):
+embedding = <span class="py-kw">await</span> <span class="py-fn">embed_query</span>(claim[<span class="py-str">"text"</span>])
+
+<span class="py-cm"># Child: vector search</span>
+<span class="py-kw">with</span> tracer.<span class="py-fn">start_as_current_span</span>(<span class="py-str">"chromadb.search"</span>) <span class="py-kw">as</span> s:
+results = <span class="py-kw">await</span> <span class="py-fn">chroma_search</span>(embedding, k=<span class="num">10</span>)
+s.<span class="py-fn">set_attribute</span>(<span class="py-str">"results.count"</span>, <span class="py-fn">len</span>(results))
+
+<span class="py-cm"># Child: reranking</span>
+<span class="py-kw">with</span> tracer.<span class="py-fn">start_as_current_span</span>(<span class="py-str">"cohere.rerank"</span>):
+reranked = <span class="py-kw">await</span> <span class="py-fn">cohere_rerank</span>(results, top_k=<span class="num">3</span>)
+
+span.<span class="py-fn">set_attribute</span>(<span class="py-str">"faithfulness.score"</span>, <span class="num">0.91</span>)
+<span class="py-kw">return</span> reranked</pre>
+</div>
+<div class="code-panel" id="trace-go">
+<pre><span class="go-kw">import</span> (
+<span class="go-str">"go.opentelemetry.io/otel"</span>
+<span class="go-str">"go.opentelemetry.io/otel/attribute"</span>
+)
+
+<span class="go-kw">var</span> tracer = otel.<span class="go-fn">Tracer</span>(<span class="go-str">"icpa.pipeline"</span>)
+
+<span class="go-kw">func</span> <span class="go-fn">RAGRetrievalAgent</span>(
+ctx <span class="go-tp">context.Context</span>,
+claim <span class="go-tp">Claim</span>,
+) ([]<span class="go-tp">Document</span>, <span class="go-tp">error</span>) {
+
+ctx, span := tracer.<span class="go-fn">Start</span>(ctx, <span class="go-str">"rag.retrieval"</span>)
+<span class="go-kw">defer</span> span.<span class="go-fn">End</span>()
+
+span.<span class="go-fn">SetAttributes</span>(
+attribute.<span class="go-fn">String</span>(<span class="go-str">"icpa.case_type"</span>, claim.CaseType),
+attribute.<span class="go-fn">String</span>(<span class="go-str">"icpa.claim_id"</span>, claim.ID),
+)
+
+<span class="go-cm">// Child span: embed</span>
+ctx, embedSpan := tracer.<span class="go-fn">Start</span>(ctx, <span class="go-str">"bge_m3.embed"</span>)
+emb, _ := <span class="go-fn">EmbedQuery</span>(ctx, claim.Text)
+embedSpan.<span class="go-fn">End</span>()
+
+<span class="go-cm">// Child span: search</span>
+ctx, searchSpan := tracer.<span class="go-fn">Start</span>(ctx, <span class="go-str">"chromadb.search"</span>)
+results, _ := <span class="go-fn">ChromaSearch</span>(ctx, emb)
+searchSpan.<span class="go-fn">SetAttributes</span>(
+attribute.<span class="go-fn">Int</span>(<span class="go-str">"results.count"</span>, <span class="go-fn">len</span>(results)))
+searchSpan.<span class="go-fn">End</span>()
+
+<span class="go-kw">return</span> results, <span class="go-kw">nil</span>
+}</pre>
+</div>
+</div>
+
+<div class="impact-banner">
+<span class="icon">📉</span>
+<p><strong>Business impact:</strong> Adding OTel tracing to ICPA's 9-agent pipeline revealed the Cohere Rerank call was consuming 68% of total latency. Moving to async rerank + caching reduced MTTR from 4h → 2h and p95 latency by 40%.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="tradeoff-grid" style="margin-top:20px">
+<div class="tradeoff-box pros">
+<h4>✓ OTel Wins</h4>
+<ul>
+<li>Vendor-neutral (Jaeger, Grafana, Datadog)</li>
+<li>Single SDK for all 3 pillars</li>
+<li>W3C trace context propagation</li>
+<li>Auto-instrumentation for FastAPI, SQLAlchemy</li>
+<li>50% MTTR reduction (ICPA GenAI Log Engine)</li>
+</ul>
+</div>
+<div class="tradeoff-box cons">
+<h4>✗ OTel Trade-offs</h4>
+<ul>
+<li>Cardinality explosion in high-label metrics</li>
+<li>Sampling strategy must be tuned</li>
+<li>Additional sidecar CPU overhead (~5%)</li>
+<li>LangGraph async context propagation non-trivial</li>
+</ul>
+</div>
+</div>
+</section>
+
+<!-- ==================== KAFKA / ASYNC ==================== -->
+<section id="kafka" class="section">
+<div class="section-header">
+<div class="section-title">// tab 04</div>
+<h1 class="section-headline">Async Code + Kafka Event Systems</h1>
+<p class="section-sub">Async vs Reactive · Kafka producer/consumer · Exactly-once semantics</p>
+</div>
+
+<div class="cards-grid">
+<div class="card">
+<div class="card-header">
+<div class="card-icon" style="background:rgba(251,146,60,0.15)">🔄</div>
+<div class="card-title">Async vs Reactive Code</div>
+</div>
+<div class="card-body">
+<p><strong style="color:var(--text)">Async</strong>: non-blocking I/O using event loop (Python asyncio, Go goroutines). Request fires, awaits response, frees thread. <strong style="color:var(--text)">Reactive</strong>: data streams with backpressure — producer/consumer communicate via signals to prevent overflow.</p>
+
+<div class="code-tabs" id="async-tabs">
+<button class="code-tab active" onclick="switchCode('async','py')">Python</button>
+<button class="code-tab" onclick="switchCode('async','go')">Go</button>
+</div>
+<div class="code-wrap">
+<div class="code-panel active" id="async-py">
+<pre><span class="py-cm"># Async pattern — ICPA FastAPI LLM calls</span>
+<span class="py-kw">import</span> asyncio
+<span class="py-kw">from</span> fastapi <span class="py-kw">import</span> <span class="py-tp">FastAPI</span>
+<span class="py-kw">import</span> httpx
+
+app = <span class="py-tp">FastAPI</span>()
+
+<span class="py-cm"># Fire 3 LLM calls concurrently (not sequentially)</span>
+<span class="py-kw">async def</span> <span class="py-fn">parallel_llm_agents</span>(claim_text: <span class="py-tp">str</span>):
+<span class="py-kw">async with</span> httpx.<span class="py-tp">AsyncClient</span>() <span class="py-kw">as</span> client:
+tasks = [
+<span class="py-fn">call_classification_agent</span>(client, claim_text),
+<span class="py-fn">call_extraction_agent</span>(client, claim_text),
+<span class="py-fn">call_translation_agent</span>(client, claim_text),
+]
+<span class="py-cm"># All 3 fire simultaneously</span>
+results = <span class="py-kw">await</span> asyncio.<span class="py-fn">gather</span>(*tasks)
+<span class="py-kw">return</span> results
+
+<span class="py-cm"># asyncio.gather vs asyncio.wait:
+# gather: fail-fast on first exception
+# wait: inspect each result individually</span>
+
+<span class="py-cm"># Reactive: aiostream for backpressure</span>
+<span class="py-kw">from</span> aiostream <span class="py-kw">import</span> stream, pipe
+
+<span class="py-kw">async def</span> <span class="py-fn">reactive_claim_pipeline</span>():
+source = stream.<span class="py-fn">iterate</span>(<span class="py-fn">get_s3_email_stream</span>())
+pipeline = (
+source
+| pipe.<span class="py-fn">map</span>(<span class="py-fn">translate_to_english</span>, task_limit=<span class="num">5</span>)
+| pipe.<span class="py-fn">map</span>(<span class="py-fn">embed_with_bge_m3</span>, task_limit=<span class="num">3</span>)
+| pipe.<span class="py-fn">map</span>(<span class="py-fn">store_to_chromadb</span>)
+)
+<span class="py-kw">async with</span> pipeline.<span class="py-fn">stream</span>() <span class="py-kw">as</span> streamer:
+<span class="py-kw">async for</span> result <span class="py-kw">in</span> streamer:
+<span class="py-fn">print</span>(result)</pre>
+</div>
+<div class="code-panel" id="async-go">
+<pre><span class="go-cm">// Go: goroutines + channels = native async+reactive</span>
+
+<span class="go-kw">func</span> <span class="go-fn">ParallelAgents</span>(ctx <span class="go-tp">context.Context</span>, text <span class="go-tp">string</span>) {
+<span class="go-kw">var</span> wg sync.<span class="go-tp">WaitGroup</span>
+results := <span class="go-fn">make</span>(<span class="go-kw">chan</span> <span class="go-tp">AgentResult</span>, <span class="num">3</span>)
+errors := <span class="go-fn">make</span>(<span class="go-kw">chan</span> <span class="go-tp">error</span>, <span class="num">3</span>)
+
+agents := []<span class="go-tp">AgentFunc</span>{
+ClassifyAgent, ExtractAgent, TranslateAgent,
+}
+<span class="go-kw">for</span> _, agent := <span class="go-kw">range</span> agents {
+wg.<span class="go-fn">Add</span>(<span class="num">1</span>)
+<span class="go-kw">go func</span>(a <span class="go-tp">AgentFunc</span>) {
+<span class="go-kw">defer</span> wg.<span class="go-fn">Done</span>()
+r, err := a(ctx, text)
+<span class="go-kw">if</span> err != <span class="go-kw">nil</span> { errors <- err; <span class="go-kw">return</span> }
+results <- r
+}(agent)
+}
+<span class="go-cm">// Close channels after all goroutines done</span>
+<span class="go-kw">go func</span>() { wg.<span class="go-fn">Wait</span>(); <span class="go-fn">close</span>(results) }()
+}
+
+<span class="go-cm">// Reactive backpressure with buffered channel</span>
+<span class="go-kw">func</span> <span class="go-fn">ReactiveClaimPipeline</span>(ctx <span class="go-tp">context.Context</span>) {
+emailCh := <span class="go-fn">make</span>(<span class="go-kw">chan</span> <span class="go-tp">Email</span>, <span class="num">100</span>) <span class="go-cm">// backpressure buffer</span>
+embedCh := <span class="go-fn">make</span>(<span class="go-kw">chan</span> <span class="go-tp">Embedding</span>, <span class="num">32</span>)
+
+<span class="go-kw">go</span> <span class="go-fn">S3EmailProducer</span>(ctx, emailCh)
+<span class="go-kw">go</span> <span class="go-fn">BGEEmbedder</span>(ctx, emailCh, embedCh)
+<span class="go-kw">go</span> <span class="go-fn">ChromaDBWriter</span>(ctx, embedCh)
+<span class="go-cm">// Goroutines self-throttle when channels full</span>
+}</pre>
+</div>
+</div>
+
+<div class="tradeoff-grid">
+<div class="tradeoff-box pros">
+<h4>✓ Async/Reactive</h4>
+<ul>
+<li>~10x throughput vs sync threads</li>
+<li>Natural backpressure with buffered channels</li>
+<li>Go goroutines: true parallel (no GIL)</li>
+</ul>
+</div>
+<div class="tradeoff-box cons">
+<h4>✗ Complexity</h4>
+<ul>
+<li>Debugging async stack traces harder</li>
+<li>Python: asyncio context vars for OTel</li>
+<li>Deadlocks if channels unbuffered + full</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header">
+<div class="card-icon" style="background:rgba(255,107,107,0.15)">⚡</div>
+<div class="card-title">Kafka — Event Streaming at Scale</div>
+</div>
+<div class="card-body">
+<p>Kafka is a durable, ordered, partitioned log. Producers append; consumers read at their own pace. Kafka stores events, making it different from transient queues like SQS.</p>
+
+<div class="diagram-box">Kafka ICPA Architecture
+
+Producer (ICPA Email Ingester)
+│
+▼ partition by case_type hash
+┌───────────────────────────────┐
+│ Topic: icpa.claims.raw │
+│ Partition 0: DST claims │
+│ Partition 1: MIN/MDR claims │
+│ Partition 2: AER/MER claims │
+└────────────┬──────────────────┘
+│
+┌───────┴────────┐
+▼ ▼
+Consumer Group A Consumer Group B
+(LangGraph agents) (Audit Logger)
+│
+▼ offset committed AFTER processing
+DynamoDB event store</div>
+
+<div class="code-tabs" id="kafka-tabs">
+<button class="code-tab active" onclick="switchCode('kafka','py')">Python</button>
+<button class="code-tab" onclick="switchCode('kafka','go')">Go</button>
+</div>
+<div class="code-wrap">
+<div class="code-panel active" id="kafka-py">
+<pre><span class="py-kw">from</span> confluent_kafka <span class="py-kw">import</span> <span class="py-tp">Producer</span>, <span class="py-tp">Consumer</span>
+<span class="py-kw">import</span> json
+
+<span class="py-cm"># Producer — ICPA email ingester</span>
+producer = <span class="py-tp">Producer</span>({
+<span class="py-str">"bootstrap.servers"</span>: <span class="py-str">"kafka:9092"</span>,
+<span class="py-str">"enable.idempotence"</span>: <span class="py-tp">True</span>, <span class="py-cm"># exactly-once</span>
+<span class="py-str">"acks"</span>: <span class="py-str">"all"</span>,
+<span class="py-str">"retries"</span>: <span class="num">5</span>,
+})
+
+<span class="py-kw">def</span> <span class="py-fn">publish_claim</span>(claim: <span class="py-tp">dict</span>):
+producer.<span class="py-fn">produce</span>(
+topic=<span class="py-str">"icpa.claims.raw"</span>,
+key=claim[<span class="py-str">"case_type"</span>].encode(), <span class="py-cm"># partition key</span>
+value=json.<span class="py-fn">dumps</span>(claim).encode(),
+on_delivery=<span class="py-kw">lambda</span> err, msg: (
+<span class="py-fn">print</span>(<span class="py-str">f"Failed: {err}"</span>) <span class="py-kw">if</span> err
+<span class="py-kw">else</span> <span class="py-fn">print</span>(<span class="py-str">f"Offset: {msg.offset()}"</span>)
+),
+)
+producer.<span class="py-fn">flush</span>()
+
+<span class="py-cm"># Consumer — LangGraph agent trigger</span>
+consumer = <span class="py-tp">Consumer</span>({
+<span class="py-str">"bootstrap.servers"</span>: <span class="py-str">"kafka:9092"</span>,
+<span class="py-str">"group.id"</span>: <span class="py-str">"icpa-agents"</span>,
+<span class="py-str">"auto.offset.reset"</span>: <span class="py-str">"earliest"</span>,
+<span class="py-str">"enable.auto.commit"</span>: <span class="py-tp">False</span>, <span class="py-cm"># manual commit</span>
+})
+consumer.<span class="py-fn">subscribe</span>([<span class="py-str">"icpa.claims.raw"</span>])
+
+<span class="py-kw">while True</span>:
+msg = consumer.<span class="py-fn">poll</span>(timeout=<span class="num">1.0</span>)
+<span class="py-kw">if</span> msg <span class="py-kw">is None</span>: <span class="py-kw">continue</span>
+claim = json.<span class="py-fn">loads</span>(msg.<span class="py-fn">value</span>())
+<span class="py-cm"># Process THEN commit (at-least-once guarantee)</span>
+<span class="py-kw">await</span> <span class="py-fn">process_with_langgraph</span>(claim)
+consumer.<span class="py-fn">commit</span>(msg) <span class="py-cm"># only after success</span></pre>
+</div>
+<div class="code-panel" id="kafka-go">
+<pre><span class="go-kw">import</span> <span class="go-str">"github.com/segmentio/kafka-go"</span>
+
+<span class="go-cm">// Producer</span>
+<span class="go-kw">func</span> <span class="go-fn">NewProducer</span>() *kafka.<span class="go-tp">Writer</span> {
+<span class="go-kw">return</span> &kafka.<span class="go-tp">Writer</span>{
+Addr: kafka.<span class="go-fn">TCP</span>(<span class="go-str">"kafka:9092"</span>),
+Topic: <span class="go-str">"icpa.claims.raw"</span>,
+Balancer: &kafka.<span class="go-tp">Hash</span>{}, <span class="go-cm">// partition by key</span>
+RequiredAcks: kafka.<span class="go-fn">RequireAll</span>(),
+MaxAttempts: <span class="num">5</span>,
+}
+}
+
+<span class="go-kw">func</span> <span class="go-fn">PublishClaim</span>(w *kafka.<span class="go-tp">Writer</span>, claim <span class="go-tp">Claim</span>) <span class="go-tp">error</span> {
+<span class="go-kw">return</span> w.<span class="go-fn">WriteMessages</span>(context.<span class="go-fn">Background</span>(),
+kafka.<span class="go-tp">Message</span>{
+Key: []<span class="go-tp">byte</span>(claim.CaseType),
+Value: <span class="go-fn">marshalJSON</span>(claim),
+},
+)
+}
+
+<span class="go-cm">// Consumer with manual commit</span>
+<span class="go-kw">func</span> <span class="go-fn">RunConsumer</span>(ctx <span class="go-tp">context.Context</span>) {
+r := kafka.<span class="go-fn">NewReader</span>(kafka.<span class="go-tp">ReaderConfig</span>{
+Brokers: []<span class="go-tp">string</span>{<span class="go-str">"kafka:9092"</span>},
+Topic: <span class="go-str">"icpa.claims.raw"</span>,
+GroupID: <span class="go-str">"icpa-agents"</span>,
+CommitInterval: <span class="num">0</span>, <span class="go-cm">// manual commit</span>
+})
+<span class="go-kw">for</span> {
+m, _ := r.<span class="go-fn">FetchMessage</span>(ctx)
+<span class="go-fn">processWithAgents</span>(m.Value)
+r.<span class="go-fn">CommitMessages</span>(ctx, m) <span class="go-cm">// after success</span>
+}
+}</pre>
+</div>
+</div>
+
+<div class="impact-banner">
+<span class="icon">🏭</span>
+<p><strong>Business impact:</strong> Kafka's durable log means ICPA can replay claims after a bug fix without data loss. The GenAI Log Analysis Engine uses Kafka to stream 50k log lines/min for real-time anomaly detection — achieving the <strong>50% MTTR reduction</strong>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ==================== REDIS + SQL/NoSQL ==================== -->
+<section id="redis" class="section">
+<div class="section-header">
+<div class="section-title">// tab 05</div>
+<h1 class="section-headline">Redis Caching + SQL vs NoSQL</h1>
+<p class="section-sub">Cache-aside pattern · TTL strategies · When to use relational vs document stores</p>
+</div>
+
+<div class="cards-grid">
+<div class="card">
+<div class="card-header">
+<div class="card-icon" style="background:rgba(255,107,107,0.15)">🔴</div>
+<div class="card-title">Redis Cache-Aside Pattern</div>
+</div>
+<div class="card-body">
+<p>App checks Redis first. On miss → query DB → store in Redis with TTL → return. On write → update DB, optionally invalidate cache key.</p>
+
+<div class="diagram-box">Cache-Aside Flow (ICPA TF-IDF fast-path)
+
+Client Request
+│
+▼
+Redis Hit? ──YES──► Return immediately (< 1ms)
+│ NO
+▼
+ChromaDB / RDS Query (50-200ms)
+│
+▼
+Store in Redis (TTL = 3600s for claim lookups)
+│
+▼
+Return to client</div>
+
+<div class="code-tabs" id="redis-tabs">
+<button class="code-tab active" onclick="switchCode('redis','py')">Python</button>
+<button class="code-tab" onclick="switchCode('redis','go')">Go</button>
+</div>
+<div class="code-wrap">
+<div class="code-panel active" id="redis-py">
+<pre><span class="py-kw">import</span> redis.asyncio <span class="py-kw">as</span> redis
+<span class="py-kw">import</span> json
+<span class="py-kw">from</span> functools <span class="py-kw">import</span> wraps
+
+r = redis.<span class="py-fn">Redis</span>(host=<span class="py-str">"elasticache"</span>, decode_responses=<span class="py-tp">True</span>)
+
+<span class="py-cm"># ICPA: Cache TF-IDF routing decisions</span>
+<span class="py-kw">async def</span> <span class="py-fn">get_tfidf_route</span>(email_hash: <span class="py-tp">str</span>) -> <span class="py-tp">dict</span> | <span class="py-tp">None</span>:
+cached = <span class="py-kw">await</span> r.<span class="py-fn">get</span>(<span class="py-str">f"tfidf:{email_hash}"</span>)
+<span class="py-kw">if</span> cached:
+<span class="py-kw">return</span> json.<span class="py-fn">loads</span>(cached)
+
+<span class="py-cm"># Miss: compute TF-IDF classification</span>
+result = <span class="py-fn">compute_tfidf_classification</span>(email_hash)
+
+<span class="py-cm"># Cache with TTL (different TTLs by case type)</span>
+ttl_map = {<span class="py-str">"DST"</span>: <span class="num">7200</span>, <span class="py-str">"MIN"</span>: <span class="num">3600</span>, <span class="py-str">"MDR"</span>: <span class="num">1800</span>}
+<span class="py-kw">await</span> r.<span class="py-fn">setex</span>(
+<span class="py-str">f"tfidf:{email_hash}"</span>,
+ttl_map.get(result[<span class="py-str">"case_type"</span>], <span class="num">3600</span>),
+json.<span class="py-fn">dumps</span>(result)
+)
+<span class="py-kw">return</span> result
+
+<span class="py-cm"># Cache stampede prevention: Redis lock</span>
+<span class="py-kw">async def</span> <span class="py-fn">get_with_lock</span>(key: <span class="py-tp">str</span>, compute_fn):
+val = <span class="py-kw">await</span> r.<span class="py-fn">get</span>(key)
+<span class="py-kw">if</span> val: <span class="py-kw">return</span> json.<span class="py-fn">loads</span>(val)
+
+lock_key = <span class="py-str">f"lock:{key}"</span>
+<span class="py-kw">if</span> <span class="py-kw">await</span> r.<span class="py-fn">set</span>(lock_key, <span class="py-num">1</span>, nx=<span class="py-tp">True</span>, ex=<span class="num">30</span>):
+result = <span class="py-kw">await</span> <span class="py-fn">compute_fn</span>()
+<span class="py-kw">await</span> r.<span class="py-fn">setex</span>(key, <span class="num">3600</span>, json.<span class="py-fn">dumps</span>(result))
+<span class="py-kw">await</span> r.<span class="py-fn">delete</span>(lock_key)
+<span class="py-kw">return</span> result
+<span class="py-cm"># Another process is computing; brief wait</span>
+<span class="py-kw">await</span> asyncio.<span class="py-fn">sleep</span>(<span class="num">0.1</span>)
+<span class="py-kw">return await</span> <span class="py-fn">get_with_lock</span>(key, compute_fn)</pre>
+</div>
+<div class="code-panel" id="redis-go">
+<pre><span class="go-kw">import</span> <span class="go-str">"github.com/redis/go-redis/v9"</span>
+
+<span class="go-kw">type</span> <span class="go-tp">Cache</span> <span class="go-kw">struct</span> { rdb *redis.<span class="go-tp">Client</span> }
+
+<span class="go-kw">func</span> (c *<span class="go-tp">Cache</span>) <span class="go-fn">GetTFIDFRoute</span>(
+ctx <span class="go-tp">context.Context</span>, hash <span class="go-tp">string</span>,
+) (*<span class="go-tp">Route</span>, <span class="go-tp">error</span>) {
+
+key := <span class="go-str">"tfidf:"</span> + hash
+<span class="go-cm">// Try cache</span>
+val, err := c.rdb.<span class="go-fn">Get</span>(ctx, key).<span class="go-fn">Result</span>()
+<span class="go-kw">if</span> err == <span class="go-kw">nil</span> {
+<span class="go-kw">var</span> route <span class="go-tp">Route</span>
+json.<span class="go-fn">Unmarshal</span>([]<span class="go-tp">byte</span>(val), &route)
+<span class="go-kw">return</span> &route, <span class="go-kw">nil</span>
+}
+<span class="go-kw">if</span> err != redis.<span class="go-tp">Nil</span> { <span class="go-kw">return nil</span>, err }
+
+<span class="go-cm">// Miss: compute</span>
+route := <span class="go-fn">ComputeTFIDF</span>(hash)
+
+<span class="go-cm">// Store with TTL</span>
+ttl := time.Hour
+<span class="go-kw">if</span> route.CaseType == <span class="go-str">"DST"</span> { ttl = 2 * time.Hour }
+b, _ := json.<span class="go-fn">Marshal</span>(route)
+c.rdb.<span class="go-fn">SetEx</span>(ctx, key, <span class="go-tp">string</span>(b), ttl)
+<span class="go-kw">return</span> route, <span class="go-kw">nil</span>
+}</pre>
+</div>
+</div>
+
+<div class="tradeoff-grid">
+<div class="tradeoff-box pros">
+<h4>✓ Redis Cache Wins</h4>
+<ul>
+<li>Sub-millisecond reads</li>
+<li>Reduces LLM API calls (~$15k/yr savings)</li>
+<li>TF-IDF fast-path: 80% of claims bypass RAG</li>
+</ul>
+</div>
+<div class="tradeoff-box cons">
+<h4>✗ Cache Trade-offs</h4>
+<ul>
+<li>Stale data until TTL expires</li>
+<li>Cache stampede on cold start</li>
+<li>Memory limit requires eviction policy</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header">
+<div class="card-icon" style="background:rgba(74,222,128,0.15)">🗄️</div>
+<div class="card-title">SQL vs NoSQL — Decision Guide</div>
+</div>
+<div class="card-body">
+<p>The choice is about data shape, consistency needs, and access patterns — not just scale.</p>
+
+<div class="compare-grid">
+<div class="compare-col">
+<div class="compare-col-header" style="color:var(--accent)">SQL (Relational)</div>
+<div class="compare-col-body">
+<ul>
+<li>Fixed schema, ACID transactions</li>
+<li>Complex JOIN queries</li>
+<li>Strong consistency required</li>
+<li>Financial data, audit trails</li>
+<li>ICPA: claim audit log in RDS Aurora</li>
+<li>ICPA: ~15k claims/month, report joins</li>
+</ul>
+</div>
+</div>
+<div class="compare-col">
+<div class="compare-col-header" style="color:var(--green)">NoSQL (Non-Relational)</div>
+<div class="compare-col-body">
+<ul>
+<li>Flexible schema, horizontal scale</li>
+<li>Key-value, document, graph</li>
+<li>Eventual consistency OK</li>
+<li>High write throughput needed</li>
+<li>ICPA: DynamoDB for claim event log</li>
+<li>ICPA: ChromaDB for vector embeddings</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="code-tabs" id="sqlnosql-tabs">
+<button class="code-tab active" onclick="switchCode('sqlnosql','py')">Python</button>
+<button class="code-tab" onclick="switchCode('sqlnosql','go')">Go</button>
+</div>
+<div class="code-wrap">
+<div class="code-panel active" id="sqlnosql-py">
+<pre><span class="py-cm"># SQL — SQLAlchemy async (ICPA audit log)</span>
+<span class="py-kw">from</span> sqlalchemy.ext.asyncio <span class="py-kw">import</span> <span class="py-tp">AsyncSession</span>
+<span class="py-kw">from</span> sqlalchemy <span class="py-kw">import</span> <span class="py-fn">select</span>
+
+<span class="py-kw">async def</span> <span class="py-fn">get_claims_by_month</span>(session: <span class="py-tp">AsyncSession</span>, month: <span class="py-tp">str</span>):
+<span class="py-cm"># Strong consistency, complex JOIN for reporting</span>
+result = <span class="py-kw">await</span> session.<span class="py-fn">execute</span>(
+<span class="py-fn">select</span>(Claim, CaseMetadata)
+.<span class="py-fn">join</span>(CaseMetadata)
+.<span class="py-fn">where</span>(Claim.month == month)
+.<span class="py-fn">order_by</span>(Claim.created_at)
+)
+<span class="py-kw">return</span> result.<span class="py-fn">all</span>()
+
+<span class="py-cm"># NoSQL — DynamoDB (ICPA event store)</span>
+<span class="py-kw">import</span> boto3
+
+dynamodb = boto3.resource(<span class="py-str">"dynamodb"</span>)
+table = dynamodb.<span class="py-tp">Table</span>(<span class="py-str">"icpa-claim-events"</span>)
+
+<span class="py-cm"># Single-table design: PK=claim_id, SK=timestamp</span>
+<span class="py-kw">def</span> <span class="py-fn">put_claim_event</span>(claim_id: <span class="py-tp">str</span>, event: <span class="py-tp">dict</span>):
+table.<span class="py-fn">put_item</span>(Item={
+<span class="py-str">"PK"</span>: <span class="py-str">f"CLAIM#{claim_id}"</span>,
+<span class="py-str">"SK"</span>: <span class="py-str">f"EVENT#{event['timestamp']}"</span>,
+<span class="py-str">"data"</span>: event,
+<span class="py-str">"TTL"</span>: <span class="py-fn">int</span>(time.<span class="py-fn">time</span>()) + <span class="num">90</span> * <span class="num">86400</span> <span class="py-cm"># 90 days</span>
+})
+
+<span class="py-cm"># ChromaDB — vector store (ICPA RAG)
+# Flexible schema: no migration needed when
+# adding new embedding models or metadata</span>
+collection.<span class="py-fn">add</span>(
+embeddings=[bgem3_embedding],
+documents=[german_claim_text],
+metadatas=[{<span class="py-str">"case_type"</span>: <span class="py-str">"DST"</span>, <span class="py-str">"date"</span>: <span class="py-str">"2025-01"</span>}],
+ids=[claim_id]
+)</pre>
+</div>
+<div class="code-panel" id="sqlnosql-go">
+<pre><span class="go-cm">// SQL with pgx (Go) — ICPA audit queries</span>
+<span class="go-kw">import</span> <span class="go-str">"github.com/jackc/pgx/v5/pgxpool"</span>
+
+<span class="go-kw">func</span> <span class="go-fn">GetClaimsByMonth</span>(
+ctx <span class="go-tp">context.Context</span>,
+pool *pgxpool.<span class="go-tp">Pool</span>,
+month <span class="go-tp">string</span>,
+) ([]<span class="go-tp">Claim</span>, <span class="go-tp">error</span>) {
+
+rows, err := pool.<span class="go-fn">Query</span>(ctx, <span class="go-str">`
+SELECT c.id, c.case_type, m.confidence
+FROM claims c
+JOIN case_metadata m ON c.id = m.claim_id
+WHERE c.month = $1
+ORDER BY c.created_at
+`</span>, month)
+<span class="go-kw">if</span> err != <span class="go-kw">nil</span> { <span class="go-kw">return nil</span>, err }
+<span class="go-kw">defer</span> rows.<span class="go-fn">Close</span>()
+<span class="go-kw">return</span> pgx.CollectRows(rows, pgx.RowToStructByName[<span class="go-tp">Claim</span>])
+}
+
+<span class="go-cm">// DynamoDB (AWS SDK v2) — ICPA event store</span>
+<span class="go-kw">import</span> <span class="go-str">"github.com/aws/aws-sdk-go-v2/service/dynamodb"</span>
+
+<span class="go-kw">func</span> <span class="go-fn">PutClaimEvent</span>(
+ctx <span class="go-tp">context.Context</span>, svc *dynamodb.<span class="go-tp">Client</span>,
+claimID, timestamp <span class="go-tp">string</span>, data <span class="go-tp">map</span>[<span class="go-tp">string</span>]<span class="go-tp">any</span>,
+) <span class="go-tp">error</span> {
+_, err := svc.<span class="go-fn">PutItem</span>(ctx, &dynamodb.<span class="go-tp">PutItemInput</span>{
+TableName: aws.<span class="go-fn">String</span>(<span class="go-str">"icpa-claim-events"</span>),
+Item: <span class="go-fn">buildItem</span>(claimID, timestamp, data),
+})
+<span class="go-kw">return</span> err
+}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ==================== REST + gRPC + Auth ==================== -->
+<section id="api" class="section">
+<div class="section-header">
+<div class="section-title">// tab 06</div>
+<h1 class="section-headline">REST + gRPC + Modern Auth</h1>
+<p class="section-sub">Protocol comparison · When to use each · Passkey + JWT flow</p>
+</div>
+
+<div class="cards-grid">
+<div class="card">
+<div class="card-header">
+<div class="card-icon" style="background:rgba(0,199,255,0.15)">🔌</div>
+<div class="card-title">REST vs gRPC</div>
+</div>
+<div class="card-body">
+<div class="compare-grid">
+<div class="compare-col">
+<div class="compare-col-header" style="color:var(--accent2)">REST API</div>
+<div class="compare-col-body">
+<ul>
+<li>HTTP/1.1 or HTTP/2 + JSON</li>
+<li>Human-readable, easy to debug</li>
+<li>Browser-native, curl-friendly</li>
+<li>Larger payload (JSON verbosity)</li>
+<li>ICPA: external-facing FastAPI endpoints</li>
+<li>Use when: public API, browser clients</li>
+</ul>
+</div>
+</div>
+<div class="compare-col">
+<div class="compare-col-header" style="color:var(--purple)">gRPC API</div>
+<div class="compare-col-body">
+<ul>
+<li>HTTP/2 + Protobuf (binary)</li>
+<li>Strongly typed via .proto schema</li>
+<li>3-10x faster than REST/JSON</li>
+<li>Streaming (unary, server, bidi)</li>
+<li>ICPA: agent-to-agent internal calls</li>
+<li>Use when: service-to-service, low latency</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="code-tabs" id="rest-tabs">
+<button class="code-tab active" onclick="switchCode('rest','py')">Python</button>
+<button class="code-tab" onclick="switchCode('rest','go')">Go</button>
+</div>
+<div class="code-wrap">
+<div class="code-panel active" id="rest-py">
+<pre><span class="py-cm"># FastAPI REST — ICPA external gateway</span>
+<span class="py-kw">from</span> fastapi <span class="py-kw">import</span> <span class="py-tp">FastAPI</span>, <span class="py-tp">Depends</span>, <span class="py-tp">HTTPException</span>
+<span class="py-kw">from</span> pydantic <span class="py-kw">import</span> <span class="py-tp">BaseModel</span>
+
+<span class="py-kw">class</span> <span class="py-tp">ClaimRequest</span>(<span class="py-tp">BaseModel</span>):
+email_content: <span class="py-tp">str</span>
+language: <span class="py-tp">str</span> = <span class="py-str">"de"</span>
+
+<span class="py-kw">class</span> <span class="py-tp">ClaimResponse</span>(<span class="py-tp">BaseModel</span>):
+claim_id: <span class="py-tp">str</span>
+case_type: <span class="py-tp">str</span>
+confidence: <span class="py-tp">float</span>
+processing_time_ms: <span class="py-tp">float</span>
+
+app = <span class="py-tp">FastAPI</span>()
+
+<span class="py-kw">@app.post</span>(<span class="py-str">"/v1/claims"</span>, response_model=<span class="py-tp">ClaimResponse</span>)
+<span class="py-kw">async def</span> <span class="py-fn">process_claim</span>(
+request: <span class="py-tp">ClaimRequest</span>,
+token: <span class="py-tp">str</span> = <span class="py-tp">Depends</span>(verify_jwt_token)
+):
+result = <span class="py-kw">await</span> <span class="py-fn">icpa_pipeline</span>(request.email_content)
+<span class="py-kw">return</span> <span class="py-tp">ClaimResponse</span>(**result)
+
+<span class="py-cm"># gRPC — agent internal comms
+# proto file defines contract:
+# service ClaimAgent {
+# rpc ProcessClaim(ClaimRequest) returns (ClaimResult);
+# rpc StreamTokens(ClaimRequest) returns (stream Token);
+# }</span>
+
+<span class="py-kw">import</span> grpc
+<span class="py-kw">from</span> generated <span class="py-kw">import</span> claim_pb2, claim_pb2_grpc
+
+<span class="py-kw">class</span> <span class="py-tp">ClaimAgentServicer</span>(claim_pb2_grpc.<span class="py-tp">ClaimAgentServicer</span>):
+<span class="py-kw">async def</span> <span class="py-fn">ProcessClaim</span>(self, request, context):
+result = <span class="py-kw">await</span> <span class="py-fn">run_rag_pipeline</span>(request.email)
+<span class="py-kw">return</span> claim_pb2.<span class="py-fn">ClaimResult</span>(
+case_type=result.case_type,
+confidence=result.confidence
+)
+
+<span class="py-kw">async def</span> <span class="py-fn">StreamTokens</span>(self, request, context):
+<span class="py-kw">async for</span> token <span class="py-kw">in</span> <span class="py-fn">llm_stream_tokens</span>(request.email):
+<span class="py-kw">yield</span> claim_pb2.<span class="py-fn">Token</span>(text=token)</pre>
+</div>
+<div class="code-panel" id="rest-go">
+<pre><span class="go-cm">// Go: REST with net/http + gRPC server</span>
+
+<span class="go-cm">// REST handler</span>
+<span class="go-kw">func</span> <span class="go-fn">ProcessClaimHandler</span>(w http.<span class="go-tp">ResponseWriter</span>, r *http.<span class="go-tp">Request</span>) {
+<span class="go-kw">var</span> req <span class="go-tp">ClaimRequest</span>
+json.<span class="go-fn">NewDecoder</span>(r.Body).<span class="go-fn">Decode</span>(&req)
+
+result, err := <span class="go-fn">RunICPAPipeline</span>(r.<span class="go-fn">Context</span>(), req)
+<span class="go-kw">if</span> err != <span class="go-kw">nil</span> {
+http.<span class="go-fn">Error</span>(w, err.<span class="go-fn">Error</span>(), <span class="num">500</span>)
+<span class="go-kw">return</span>
+}
+json.<span class="go-fn">NewEncoder</span>(w).<span class="go-fn">Encode</span>(result)
+}
+
+<span class="go-cm">// gRPC server (internal agent comms)</span>
+<span class="go-kw">type</span> <span class="go-tp">ClaimAgentServer</span> <span class="go-kw">struct</span> {
+claimv1.<span class="go-tp">UnimplementedClaimAgentServer</span>
+}
+
+<span class="go-kw">func</span> (s *<span class="go-tp">ClaimAgentServer</span>) <span class="go-fn">ProcessClaim</span>(
+ctx <span class="go-tp">context.Context</span>,
+req *claimv1.<span class="go-tp">ClaimRequest</span>,
+) (*claimv1.<span class="go-tp">ClaimResult</span>, <span class="go-tp">error</span>) {
+result, err := <span class="go-fn">RunRAGPipeline</span>(ctx, req.Email)
+<span class="go-kw">return</span> &claimv1.<span class="go-tp">ClaimResult</span>{
+CaseType: result.CaseType,
+Confidence: result.Confidence,
+}, err
+}
+<span class="go-cm">// gRPC: 3x faster than REST for inter-service calls
+// due to Protobuf binary + HTTP/2 multiplexing</span></pre>
+</div>
+</div>
+<div class="impact-banner">
+<span class="icon">⚡</span>
+<p><strong>Decision rule:</strong> ICPA uses REST for the external insurance portal integration (browser clients, human-readable responses) and would use gRPC for high-frequency agent-to-agent calls inside EKS where binary efficiency + streaming matters.</p>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header">
+<div class="card-icon" style="background:rgba(74,222,128,0.15)">🔐</div>
+<div class="card-title">Modern Auth — Passkey + JWT</div>
+</div>
+<div class="card-body">
+<p>Passkeys replace passwords via WebAuthn (FIDO2). Device-bound keys authenticate the user, auth server issues a JWT for subsequent API calls.</p>
+
+<div class="diagram-box">Passkey → JWT Flow (ICPA portal auth)
+
+1. User ──LoginWithPasskey──► Auth Server (biometric verify)
+2. Auth Server ◄──────────────── JWT signed (RS256, 15min TTL)
+3. Client ──Bearer JWT──────────────────────────────► API Server
+4. API Server ──validate signature, claims──────────► Response</div>
+
+<div class="code-tabs" id="auth-tabs">
+<button class="code-tab active" onclick="switchCode('auth','py')">Python</button>
+<button class="code-tab" onclick="switchCode('auth','go')">Go</button>
+</div>
+<div class="code-wrap">
+<div class="code-panel active" id="auth-py">
+<pre><span class="py-kw">from</span> fastapi <span class="py-kw">import</span> <span class="py-tp">Depends</span>, <span class="py-tp">HTTPException</span>, <span class="py-tp">Security</span>
+<span class="py-kw">from</span> fastapi.security <span class="py-kw">import</span> <span class="py-tp">HTTPBearer</span>
+<span class="py-kw">import</span> jwt
+<span class="py-kw">from</span> datetime <span class="py-kw">import</span> datetime, timedelta
+
+<span class="py-cm"># JWT generation (after passkey verification)</span>
+<span class="py-kw">def</span> <span class="py-fn">create_jwt_token</span>(user_id: <span class="py-tp">str</span>, roles: <span class="py-tp">list</span>) -> <span class="py-tp">str</span>:
+payload = {
+<span class="py-str">"sub"</span>: user_id,
+<span class="py-str">"roles"</span>: roles,
+<span class="py-str">"iat"</span>: datetime.<span class="py-fn">utcnow</span>(),
+<span class="py-str">"exp"</span>: datetime.<span class="py-fn">utcnow</span>() + timedelta(minutes=<span class="num">15</span>),
+<span class="py-str">"iss"</span>: <span class="py-str">"icpa-auth-service"</span>,
+}
+<span class="py-kw">return</span> jwt.<span class="py-fn">encode</span>(payload, PRIVATE_KEY, algorithm=<span class="py-str">"RS256"</span>)
+
+<span class="py-cm"># JWT validation middleware</span>
+bearer = <span class="py-tp">HTTPBearer</span>()
+
+<span class="py-kw">async def</span> <span class="py-fn">verify_jwt_token</span>(
+credentials: <span class="py-tp">HTTPAuthorizationCredentials</span> = <span class="py-tp">Security</span>(bearer)
+) -> <span class="py-tp">dict</span>:
+<span class="py-kw">try</span>:
+payload = jwt.<span class="py-fn">decode</span>(
+credentials.credentials,
+PUBLIC_KEY,
+algorithms=[<span class="py-str">"RS256"</span>],
+audience=<span class="py-str">"icpa-api"</span>,
+)
+<span class="py-kw">return</span> payload
+<span class="py-kw">except</span> jwt.<span class="py-tp">ExpiredSignatureError</span>:
+<span class="py-kw">raise</span> <span class="py-tp">HTTPException</span>(status_code=<span class="num">401</span>, detail=<span class="py-str">"Token expired"</span>)
+<span class="py-kw">except</span> jwt.<span class="py-tp">InvalidTokenError</span> <span class="py-kw">as</span> e:
+<span class="py-kw">raise</span> <span class="py-tp">HTTPException</span>(status_code=<span class="num">401</span>, detail=<span class="py-str">f"Invalid: {e}"</span>)
+
+<span class="py-cm"># Protected route</span>
+<span class="py-kw">@app.get</span>(<span class="py-str">"/v1/claims/{claim_id}"</span>)
+<span class="py-kw">async def</span> <span class="py-fn">get_claim</span>(
+claim_id: <span class="py-tp">str</span>,
+user: <span class="py-tp">dict</span> = <span class="py-tp">Depends</span>(verify_jwt_token)
+):
+<span class="py-kw">if</span> <span class="py-str">"claims:read"</span> <span class="py-kw">not in</span> user[<span class="py-str">"roles"</span>]:
+<span class="py-kw">raise</span> <span class="py-tp">HTTPException</span>(status_code=<span class="num">403</span>)
+<span class="py-kw">return await</span> <span class="py-fn">fetch_claim</span>(claim_id)</pre>
+</div>
+<div class="code-panel" id="auth-go">
+<pre><span class="go-kw">import</span> <span class="go-str">"github.com/golang-jwt/jwt/v5"</span>
+
+<span class="go-kw">type</span> <span class="go-tp">Claims</span> <span class="go-kw">struct</span> {
+UserID <span class="go-tp">string</span> <span class="go-str">`json:"sub"`</span>
+Roles []<span class="go-tp">string</span> <span class="go-str">`json:"roles"`</span>
+jwt.<span class="go-tp">RegisteredClaims</span>
+}
+
+<span class="go-kw">func</span> <span class="go-fn">CreateToken</span>(userID <span class="go-tp">string</span>, roles []<span class="go-tp">string</span>) (<span class="go-tp">string</span>, <span class="go-tp">error</span>) {
+claims := <span class="go-tp">Claims</span>{
+UserID: userID, Roles: roles,
+RegisteredClaims: jwt.<span class="go-tp">RegisteredClaims</span>{
+ExpiresAt: jwt.<span class="go-fn">NewNumericDate</span>(time.<span class="go-fn">Now</span>().Add(<span class="num">15</span> * time.Minute)),
+Issuer: <span class="go-str">"icpa-auth-service"</span>,
+},
+}
+t := jwt.<span class="go-fn">NewWithClaims</span>(jwt.SigningMethodRS256, claims)
+<span class="go-kw">return</span> t.<span class="go-fn">SignedString</span>(privateKey)
+}
+
+<span class="go-kw">func</span> <span class="go-fn">ValidateToken</span>(tokenStr <span class="go-tp">string</span>) (*<span class="go-tp">Claims</span>, <span class="go-tp">error</span>) {
+<span class="go-kw">var</span> claims <span class="go-tp">Claims</span>
+_, err := jwt.<span class="go-fn">ParseWithClaims</span>(
+tokenStr, &claims,
+<span class="go-kw">func</span>(t *jwt.<span class="go-tp">Token</span>) (<span class="go-kw">interface</span>{}, <span class="go-tp">error</span>) {
+<span class="go-kw">if</span> _, ok := t.Method.(*jwt.<span class="go-tp">SigningMethodRSA</span>); !ok {
+<span class="go-kw">return nil</span>, errors.<span class="go-fn">New</span>(<span class="go-str">"unexpected signing method"</span>)
+}
+<span class="go-kw">return</span> publicKey, <span class="go-kw">nil</span>
+},
+)
+<span class="go-kw">return</span> &claims, err
+}</pre>
+</div>
+</div>
+
+<div class="tradeoff-grid">
+<div class="tradeoff-box pros">
+<h4>✓ JWT + Passkey Wins</h4>
+<ul>
+<li>Stateless API servers (no session store)</li>
+<li>Passkeys: phishing-resistant (no password)</li>
+<li>Short-lived tokens limit blast radius</li>
+</ul>
+</div>
+<div class="tradeoff-box cons">
+<h4>✗ JWT Trade-offs</h4>
+<ul>
+<li>Can't revoke before expiry (need blocklist)</li>
+<li>Payload visible if base64-decoded</li>
+<li>RS256 validation CPU overhead</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ==================== SECURITY ==================== -->
+<section id="security" class="section">
+<div class="section-header">
+<div class="section-title">// tab 07</div>
+<h1 class="section-headline">Security — OWASP + Zero Trust</h1>
+<p class="section-sub">OWASP Top 10 · Zero Trust architecture · How ICPA implements defence-in-depth</p>
+</div>
+
+<div class="cards-grid">
+<div class="card">
+<div class="card-header">
+<div class="card-icon" style="background:rgba(255,107,107,0.15)">🛡️</div>
+<div class="card-title">OWASP Top 10 — ICPA Mitigations</div>
+</div>
+<div class="card-body">
+<div class="accordion">
+<div class="acc-item open">
+<div class="acc-header" onclick="toggleAcc(this)">
+<div class="acc-header-left">
+<span class="chip chip-red">A01</span>
+<span class="acc-title">Broken Access Control</span>
+</div>
+<span class="acc-chevron">▶</span>
+</div>
+<div class="acc-body">
+<p style="color:var(--text-dim);font-size:13px;margin-bottom:10px">Most common OWASP vulnerability. Users can access resources they shouldn't.</p>
+<pre style="background:#080d1a;border:1px solid var(--border);border-radius:6px;padding:12px;font-family:var(--mono);font-size:11px;color:#a8c0e8;overflow-x:auto"><span class="py-cm"># ICPA mitigation: role-based + claim ownership check</span>
+<span class="py-kw">async def</span> <span class="py-fn">get_claim</span>(claim_id: <span class="py-tp">str</span>, user: <span class="py-tp">dict</span> = <span class="py-tp">Depends</span>(auth)):
+claim = <span class="py-kw">await</span> <span class="py-fn">db.fetch</span>(claim_id)
+<span class="py-cm"># Check ownership — not just role</span>
+<span class="py-kw">if</span> claim.org_id != user[<span class="py-str">"org_id"</span>]:
+<span class="py-kw">raise</span> <span class="py-tp">HTTPException</span>(<span class="num">403</span>, <span class="py-str">"Not your claim"</span>)
+<span class="py-kw">return</span> claim</pre>
+</div>
+</div>
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)">
+<div class="acc-header-left">
+<span class="chip chip-red">A03</span>
+<span class="acc-title">Injection (SQL / Prompt Injection)</span>
+</div>
+<span class="acc-chevron">▶</span>
+</div>
+<div class="acc-body">
+<p style="color:var(--text-dim);font-size:13px;margin-bottom:10px">In AI systems, prompt injection is the new SQL injection — malicious input hijacks LLM behaviour.</p>
+<pre style="background:#080d1a;border:1px solid var(--border);border-radius:6px;padding:12px;font-family:var(--mono);font-size:11px;color:#a8c0e8;overflow-x:auto"><span class="py-cm"># SQL injection — parameterized queries</span>
+<span class="py-cm"># NEVER: f"SELECT * FROM claims WHERE id = '{claim_id}'"</span>
+result = <span class="py-kw">await</span> db.<span class="py-fn">execute</span>(
+<span class="py-str">"SELECT * FROM claims WHERE id = $1"</span>, [claim_id]
+)
+
+<span class="py-cm"># Prompt injection — input sanitization + NeMo Guardrails</span>
+<span class="py-kw">def</span> <span class="py-fn">sanitize_user_input</span>(text: <span class="py-tp">str</span>) -> <span class="py-tp">str</span>:
+<span class="py-cm"># Strip prompt-injection patterns</span>
+injection_patterns = [
+<span class="py-str">r"ignore previous instructions"</span>,
+<span class="py-str">r"you are now"</span>,
+<span class="py-str">r"system:"</span>,
+]
+<span class="py-kw">for</span> pat <span class="py-kw">in</span> injection_patterns:
+text = re.<span class="py-fn">sub</span>(pat, <span class="py-str">""</span>, text, flags=re.IGNORECASE)
+<span class="py-kw">return</span> text[:<span class="num">2000</span>] <span class="py-cm"># truncate to max safe length</span></pre>
+</div>
+</div>
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)">
+<div class="acc-header-left">
+<span class="chip chip-orange">A02</span>
+<span class="acc-title">Broken Authentication</span>
+</div>
+<span class="acc-chevron">▶</span>
+</div>
+<div class="acc-body">
+<p style="color:var(--text-dim);font-size:13px;margin-bottom:10px">Weak credentials, no MFA, sessions not invalidated, tokens not rotated.</p>
+<pre style="background:#080d1a;border:1px solid var(--border);border-radius:6px;padding:12px;font-family:var(--mono);font-size:11px;color:#a8c0e8;overflow-x:auto"><span class="py-cm"># ICPA: short-lived JWT + refresh token rotation</span>
+ACCESS_TOKEN_TTL = timedelta(minutes=<span class="num">15</span>)
+REFRESH_TOKEN_TTL = timedelta(days=<span class="num">7</span>)
+
+<span class="py-kw">async def</span> <span class="py-fn">refresh_tokens</span>(refresh_token: <span class="py-tp">str</span>) -> <span class="py-tp">TokenPair</span>:
+claims = <span class="py-fn">verify_refresh_token</span>(refresh_token)
+<span class="py-cm"># Invalidate old refresh token (rotation)</span>
+<span class="py-kw">await</span> redis.<span class="py-fn">delete</span>(<span class="py-str">f"refresh:{refresh_token}"</span>)
+<span class="py-cm"># Issue new pair</span>
+new_access = <span class="py-fn">create_jwt_token</span>(claims[<span class="py-str">"sub"</span>])
+new_refresh = <span class="py-fn">create_refresh_token</span>(claims[<span class="py-str">"sub"</span>])
+<span class="py-kw">return</span> <span class="py-tp">TokenPair</span>(access=new_access, refresh=new_refresh)</pre>
+</div>
+</div>
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAcc(this)">
+<div class="acc-header-left">
+<span class="chip chip-orange">A04</span>
+<span class="acc-title">Sensitive Data Exposure</span>
+</div>
+<span class="acc-chevron">▶</span>
+</div>
+<div class="acc-body">
+<p style="color:var(--text-dim);font-size:13px;margin-bottom:10px">PII in logs, unencrypted data at rest, secrets in environment variables exposed via API.</p>
+<pre style="background:#080d1a;border:1px solid var(--border);border-radius:6px;padding:12px;font-family:var(--mono);font-size:11px;color:#a8c0e8;overflow-x:auto"><span class="py-cm"># ICPA: PII redaction before logging</span>
+<span class="py-kw">import</span> re
+
+PII_PATTERNS = {
+<span class="py-str">"iban"</span>: <span class="py-str">r"\b[A-Z]{2}\d{2}[A-Z0-9]{4}\d{7}([A-Z0-9]?){0,16}\b"</span>,
+<span class="py-str">"phone"</span>: <span class="py-str">r"\b(\+49|0)[1-9]\d{10,12}\b"</span>,
+<span class="py-str">"email"</span>: <span class="py-str">r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b"</span>,
+}
+
+<span class="py-kw">def</span> <span class="py-fn">redact_pii</span>(text: <span class="py-tp">str</span>) -> <span class="py-tp">str</span>:
+<span class="py-kw">for</span> label, pattern <span class="py-kw">in</span> PII_PATTERNS.items():
+text = re.<span class="py-fn">sub</span>(pattern, <span class="py-str">f"[REDACTED:{label}]"</span>, text)
+<span class="py-kw">return</span> text
+
+<span class="py-cm"># AWS Secrets Manager for ICPA API keys (not env vars)</span>
+<span class="py-kw">def</span> <span class="py-fn">get_api_key</span>(secret_name: <span class="py-tp">str</span>) -> <span class="py-tp">str</span>:
+client = boto3.<span class="py-fn">client</span>(<span class="py-str">"secretsmanager"</span>)
+<span class="py-kw">return</span> client.<span class="py-fn">get_secret_value</span>(
+SecretId=secret_name
+)[<span class="py-str">"SecretString"</span>]</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header">
+<div class="card-icon" style="background:rgba(78,205,196,0.15)">🔒</div>
+<div class="card-title">Zero Trust Architecture</div>
+</div>
+<div class="card-body">
+<p>Never trust, always verify. Every request — even from inside the network — must prove identity and authorization. No implicit trust based on network location.</p>
+
+<div class="diagram-box">Zero Trust for ICPA on EKS
+
+User/Device ──────────────────────────────────────────┐
+│
+┌── Verify identity (Passkey/MFA) ────────────┐ │
+│ Verify device health (MDM posture) │ │
+│ Verify network context (location/IP) │ │
+└─────────────────────────────────────────────┘ │
+▼
+┌─────────────────────┐
+│ Policy Engine │
+│ (OPA / SPIFFE) │
+└──────┬──────────────┘
+│ ALLOW/DENY
+┌─────────────────┼──────────────┐
+▼ ▼ ▼
+Data Network Application
+(S3 encryption) (mTLS between (JWT + RBAC)
+EKS pods)</div>
+
+<div class="code-tabs" id="zt-tabs">
+<button class="code-tab active" onclick="switchCode('zt','py')">Python / Infra</button>
+<button class="code-tab" onclick="switchCode('zt','go')">Go</button>
+</div>
+<div class="code-wrap">
+<div class="code-panel active" id="zt-py">
+<pre><span class="py-cm"># Zero Trust: OPA policy check in FastAPI middleware</span>
+<span class="py-kw">import</span> httpx
+<span class="py-kw">from</span> fastapi <span class="py-kw">import</span> <span class="py-tp">Request</span>
+
+<span class="py-kw">async def</span> <span class="py-fn">zero_trust_middleware</span>(request: <span class="py-tp">Request</span>, call_next):
+<span class="py-cm"># 1. Verify JWT (who are you?)</span>
+token = <span class="py-fn">extract_bearer</span>(request.headers.get(<span class="py-str">"Authorization"</span>))
+claims = <span class="py-fn">verify_jwt_token</span>(token)
+
+<span class="py-cm"># 2. Check OPA policy (are you allowed?)</span>
+opa_input = {
+<span class="py-str">"user"</span>: claims,
+<span class="py-str">"resource"</span>: str(request.url.path),
+<span class="py-str">"method"</span>: request.method,
+<span class="py-str">"network"</span>: request.client.host,
+}
+<span class="py-kw">async with</span> httpx.<span class="py-tp">AsyncClient</span>() <span class="py-kw">as</span> client:
+resp = <span class="py-kw">await</span> client.<span class="py-fn">post</span>(
+<span class="py-str">"http://opa:8181/v1/data/icpa/authz"</span>,
+json={<span class="py-str">"input"</span>: opa_input}
+)
+allowed = resp.json().get(<span class="py-str">"result"</span>, {}).get(<span class="py-str">"allow"</span>, <span class="py-tp">False</span>)
+
+<span class="py-kw">if not</span> allowed:
+<span class="py-kw">return</span> JSONResponse({<span class="py-str">"error"</span>: <span class="py-str">"denied"</span>}, status_code=<span class="num">403</span>)
+
+<span class="py-cm"># 3. mTLS between pods handled by Envoy sidecar
+# (no code needed — mesh handles it)</span>
+<span class="py-kw">return await</span> <span class="py-fn">call_next</span>(request)
+
+<span class="py-cm"># Terraform: enforce encryption-at-rest + in-transit
+# resource "aws_s3_bucket_server_side_encryption_configuration" ...
+# resource "aws_rds_cluster" { ... storage_encrypted = true }</span></pre>
+</div>
+<div class="code-panel" id="zt-go">
+<pre><span class="go-cm">// Go: Zero Trust middleware with OPA</span>
+
+<span class="go-kw">func</span> <span class="go-fn">ZeroTrustMiddleware</span>(opaURL <span class="go-tp">string</span>) <span class="go-fn">func</span>(http.<span class="go-tp">Handler</span>) http.<span class="go-tp">Handler</span> {
+<span class="go-kw">return func</span>(next http.<span class="go-tp">Handler</span>) http.<span class="go-tp">Handler</span> {
+<span class="go-kw">return</span> http.<span class="go-fn">HandlerFunc</span>(<span class="go-kw">func</span>(w http.<span class="go-tp">ResponseWriter</span>, r *http.<span class="go-tp">Request</span>) {
+<span class="go-cm">// 1. Extract + validate JWT</span>
+claims, err := <span class="go-fn">ValidateToken</span>(<span class="go-fn">extractBearer</span>(r))
+<span class="go-kw">if</span> err != <span class="go-kw">nil</span> {
+http.<span class="go-fn">Error</span>(w, <span class="go-str">"unauthorized"</span>, <span class="num">401</span>)
+<span class="go-kw">return</span>
+}
+
+<span class="go-cm">// 2. OPA policy check</span>
+allowed, _ := <span class="go-fn">CheckOPA</span>(r.<span class="go-fn">Context</span>(), opaURL, <span class="go-tp">OPAInput</span>{
+User: claims,
+Resource: r.URL.Path,
+Method: r.Method,
+})
+<span class="go-kw">if</span> !allowed {
+http.<span class="go-fn">Error</span>(w, <span class="go-str">"forbidden"</span>, <span class="num">403</span>)
+<span class="go-kw">return</span>
+}
+
+<span class="go-cm">// 3. mTLS: Envoy sidecar handles pod-to-pod
+// (SPIFFE/SPIRE for workload identity)</span>
+next.<span class="go-fn">ServeHTTP</span>(w, r)
+})
+}
+}
+<span class="go-cm">// Zero Trust pillars for ICPA:
+// Identity: JWT + SPIFFE workload identity
+// Device: EKS node IAM roles + IMDSv2
+// Network: Envoy mTLS + NACLs + Security Groups
+// Data: KMS encryption, S3 bucket policies</span></pre>
+</div>
+</div>
+
+<div class="tradeoff-grid">
+<div class="tradeoff-box pros">
+<h4>✓ Zero Trust Benefits</h4>
+<ul>
+<li>Blast radius limited per breach</li>
+<li>Lateral movement blocked even inside VPC</li>
+<li>Audit trail on every access decision</li>
+</ul>
+</div>
+<div class="tradeoff-box cons">
+<h4>✗ Zero Trust Cost</h4>
+<ul>
+<li>Operational complexity (OPA, SPIFFE)</li>
+<li>Latency: each request hits policy engine</li>
+<li>Developer experience friction</li>
+</ul>
+</div>
+</div>
+
+<div class="impact-banner">
+<span class="icon">🏭</span>
+<p><strong>ICPA interview answer:</strong> "ICPA handles German insurance PII — GDPR mandates defence-in-depth. I implemented Zero Trust via: (1) JWT + RBAC at API gateway, (2) Envoy mTLS between EKS pods, (3) KMS encryption for all S3 claim data, (4) PII redaction before LangSmith traces, (5) AWS Secrets Manager — no secrets in env vars."</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+</main>
+
+<script>
+function showTab(id) {
+document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+event.currentTarget.classList.add('active');
+window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function switchCode(prefix, lang) {
+// Find the parent card
+const btn = event.currentTarget;
+const tabsEl = btn.parentElement;
+const wrapEl = tabsEl.nextElementSibling;
+
+tabsEl.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
+btn.classList.add('active');
+
+wrapEl.querySelectorAll('.code-panel').forEach(p => p.classList.remove('active'));
+const target = document.getElementById(`${prefix}-${lang}`);
+if(target) target.classList.add('active');
+}
+
+function toggleAcc(header) {
+const item = header.parentElement;
+item.classList.toggle('open');
+}
+</script>
+</body>
+</html>
